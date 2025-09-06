@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::table('sellers', function (Blueprint $table) {
             // Drop existing file path columns
             $table->dropColumn([
-                'text_identification',
                 'proof_of_business_registration',
                 'food_safety_certifications',
                 'government_issued_id',
@@ -29,7 +28,6 @@ return new class extends Migration
             ]);
 
             // Add file reference columns
-            $table->foreignId('text_identification_file_id')->nullable()->constrained('files')->onDelete('set null');
             $table->foreignId('proof_of_business_registration_file_id')->nullable()->constrained('files')->onDelete('set null');
             $table->foreignId('food_safety_certifications_file_id')->nullable()->constrained('files')->onDelete('set null');
             $table->foreignId('government_issued_id_file_id')->nullable()->constrained('files')->onDelete('set null');
@@ -51,7 +49,6 @@ return new class extends Migration
     {
         Schema::table('sellers', function (Blueprint $table) {
             // Drop file reference columns
-            $table->dropForeign(['text_identification_file_id']);
             $table->dropForeign(['proof_of_business_registration_file_id']);
             $table->dropForeign(['food_safety_certifications_file_id']);
             $table->dropForeign(['government_issued_id_file_id']);
@@ -65,7 +62,6 @@ return new class extends Migration
             $table->dropForeign(['product_photo_file_id']);
 
             $table->dropColumn([
-                'text_identification_file_id',
                 'proof_of_business_registration_file_id',
                 'food_safety_certifications_file_id',
                 'government_issued_id_file_id',
@@ -80,7 +76,6 @@ return new class extends Migration
             ]);
 
             // Restore original file path columns
-            $table->string('text_identification')->nullable();
             $table->string('proof_of_business_registration')->nullable();
             $table->string('food_safety_certifications')->nullable();
             $table->string('government_issued_id')->nullable();

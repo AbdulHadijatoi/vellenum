@@ -32,8 +32,8 @@ class AuthController extends Controller
             'city' => 'required|string|max:100',
             'zip_code' => 'required|string|max:20',
             'seller_category_id' => 'nullable|exists:seller_categories,id',
+            'license_number' => 'nullable|string',
             // File uploads (optional) - accept common document/image types up to 10MB
-            'text_identification_file' => 'nullable|file|max:10240',
             'proof_of_business_registration_file' => 'nullable|file|max:10240',
             'food_safety_certifications_file' => 'nullable|file|max:10240',
             'government_issued_id_file' => 'nullable|file|max:10240',
@@ -96,7 +96,7 @@ class AuthController extends Controller
                 'vehicle_insurance_document', 'rate_start_time', 'rate_amount', 'rate_type',
                 'book_title', 'book_author', 'book_price', 'book_genre', 'book_cover',
                 'book_format', 'book_file', 'what_you_sell', 'product_photo',
-                'product_price', 'product_quantity'
+                'product_price', 'product_quantity', 'license_number'
             ]);
 
             $sellerData['user_id'] = $user->id;
@@ -104,7 +104,6 @@ class AuthController extends Controller
 
             // Map uploaded files to File model records and set seller file_id columns
             $fileFieldMap = [
-                'text_identification_file' => 'text_identification_file_id',
                 'proof_of_business_registration_file' => 'proof_of_business_registration_file_id',
                 'food_safety_certifications_file' => 'food_safety_certifications_file_id',
                 'government_issued_id_file' => 'government_issued_id_file_id',

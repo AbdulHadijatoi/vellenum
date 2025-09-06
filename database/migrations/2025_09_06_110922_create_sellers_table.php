@@ -33,7 +33,7 @@ return new class extends Migration
             $table->string('delivery_partner_ssn')->nullable();
             
             // Documentation & Licensing
-            $table->string('text_identification')->nullable();
+            $table->string('license_number')->nullable();
             $table->string('proof_of_business_registration')->nullable();
             $table->string('food_safety_certifications')->nullable();
             $table->string('government_issued_id')->nullable();

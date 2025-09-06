@@ -22,7 +22,7 @@ class Seller extends Model
         'delivery_partner_name',
         'delivery_partner_phone',
         'delivery_partner_ssn',
-        'text_identification_file_id',
+        'license_number',
         'proof_of_business_registration_file_id',
         'food_safety_certifications_file_id',
         'government_issued_id_file_id',
@@ -122,12 +122,6 @@ class Seller extends Model
     public function products()
     {
         return $this->hasMany(Product::class);
-    }
-
-    // File relationships
-    public function textIdentificationFile()
-    {
-        return $this->belongsTo(File::class, 'text_identification_file_id');
     }
 
     public function proofOfBusinessRegistrationFile()

@@ -40,8 +40,7 @@ class File extends Model
 
     public function sellers()
     {
-        return $this->hasMany(Seller::class, 'text_identification_file_id')
-            ->orWhere('proof_of_business_registration_file_id', $this->id)
+        return $this->hasMany(Seller::class, 'proof_of_business_registration_file_id')
             ->orWhere('food_safety_certifications_file_id', $this->id)
             ->orWhere('government_issued_id_file_id', $this->id)
             ->orWhere('business_registration_certificate_file_id', $this->id)
