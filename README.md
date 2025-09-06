@@ -1,550 +1,118 @@
-I have three roles:
-1) Admin
-2) Seller
-3) Buyer
+# Vellenum API Documentation
+
+This README documents the Vellenum API for local development and testing.
+Set the `{{base_url}}` environment variable in your API client (Postman or curl) to your running backend (for example `http://localhost:8000`).
+
+## Quick start
+
+- Import `Vellenum.postman_collection.json` from the project root into Postman to get all pre-built requests.
+- Required headers for JSON endpoints:
+  - `Accept: application/json`
+- For protected endpoints add: `Authorization: Bearer {{token}}` (replace `{{token}}` with the access token returned by login).
 
-For the seller role, I have many seller categories as you can see in the README.md file.
+## Authentication
+
+- The API uses Laravel Passport tokens. Use `/api/auth/login` (POST) to obtain an access token.
+- Login request body (JSON):
+  - `email` (string)
+  - `password` (string)
+
+Successful login response includes `data.token` which should be used in the `Authorization` header for subsequent protected requests.
+
+## Registration (file uploads)
+
+- Endpoint: `POST /api/auth/register`
+- This endpoint accepts `multipart/form-data` to allow file uploads alongside text fields.
+- Required common form-data fields:
+  - `name`, `email`, `password`, `password_confirmation`, `role` (one of `seller`, `buyer`)
+  - Business fields used by sellers: `business_name`, `business_email`, `business_phone`, `business_address`, `country`, `state`, `city`, `zip_code`
+
+- File form keys (the server validator expects these exact keys). Add any combination as needed:
+  - `text_identification_file`
+  - `proof_of_business_registration_file`
+  - `food_safety_certifications_file`
+  - `government_issued_id_file`
+  - `business_registration_certificate_file`
+  - `professional_license_file`
+  - `legal_certifications_file`
+  - `vehicle_registration_document_file`
+  - `vehicle_insurance_document_file`
+  - `book_cover_file`
+  - `book_file`
+  - `product_photo_file`
+
+- Notes on files:
+  - Each file is validated with `nullable|file|max:10240` (up to 10 MB).
+  - Files are stored on the `public` disk under `files/` and a `File` DB record is created. Seller records reference these `File` rows via `*_file_id` columns.
+
+### Example: register via curl (multipart)
+
+Replace `{{base_url}}` with your host and attach local files.
+
+```bash
+curl -X POST "{{base_url}}/api/auth/register" \
+  -H "Accept: application/json" \
+  -F "name=John Seller" \
+  -F "email=john.seller@example.com" \
+  -F "password=password123" \
+  -F "password_confirmation=password123" \
+  -F "role=seller" \
+  -F "business_name=Johns Goods" \
+  -F "business_email=business@example.com" \
+  -F "business_phone=+15557654321" \
+  -F "business_address=123 Market St" \
+  -F "country=USA" \
+  -F "state=CA" \
+  -F "city=San Francisco" \
+  -F "zip_code=94105" \
+  -F "text_identification_file=@/path/to/id.jpg" \
+  -F "product_photo_file=@/path/to/photo.jpg"
+```
+
+(Use Postman form-data UI when testing interactively; choose the `file` type for file keys.)
+
+## Files endpoints
+
+- Upload single file: `POST /api/files/upload` (multipart, `file` key)
+- Bulk upload: `POST /api/files/bulk-upload` (multipart, `files[]` or repeated `files` keys)
+- List files: `GET /api/files` (query params: `category`, `uploaded_by`, `public_only`, `search`)
+- Download: `GET /api/files/{id}/download`
+
+Protected file endpoints require `Authorization: Bearer {{token}}`.
+
+## Important implementation notes
+
+- `app/Http/Controllers/Api/AuthController.php` accepts the file keys listed above and maps them to `File` records. Ensure your client form keys match exactly.
+- `Vellenum.postman_collection.json` in the project root contains prebuilt register templates already converted to `form-data` with the file keys.
+
+## Troubleshooting
+
+- If you see "Unable to determine authentication provider for this model from configuration" when using Passport, ensure `config/auth.php` includes an `api` guard configured for Passport and that Laravel caches are cleared:
+
+```bash
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+```
+
+- For file permission issues, ensure `storage` and `public/storage` are writable and the public disk is linked:
+
+```bash
+php artisan storage:link
+chmod -R 775 storage
+chmod -R 775 bootstrap/cache
+```
 
-I want to use spatie role and permissions for creating roles and permissions. (add seeder for the three roles)
+## Postman
 
-For the seller role, create models, migrations and seeders for all the seller registration categories. If you notice, there are some common fields in each seller category. 
-I want you to keep them in users table the common fields. and make most of the fields in the table structure as optional because admin and buyer will also use users table.
+- Import `Vellenum.postman_collection.json` to test endpoints. The collection includes the `Accept: application/json` header per-request; you may move it to the collection-level header if preferred.
 
-For the seller category fields. create sellers table and add all sellers fields in that table along with seller category id. and make most of them optional as we have many seller cateogries using one table.
-There will be only one common register api for all seller categories so include all fields in one api but make required field only for the choosen category as all fields in each seller category have different required and based on the seller category id, we will use those fields.
+## Contact / next steps
 
-There will be login api, forgot password api and send otp api for each seller cateogry to verify the email.
+If you want, I can:
+- Move `Accept: application/json` to collection-level in the Postman file.
+- Add example local filenames to the collection form-data `src` entries (note: Postman may require you to reattach files locally).
+- Provide a small integration script to programmatically register a test seller and verify `files` rows are created.
 
-for we don't have smtp configuration setup. so send otp in api response and add some comments to later add the email in send otp function and forgot password function.
-
-Install the required libraries for spatie and auth (passport authentication). 
-
-create api routes for registration and also for each category seller to allow them to post either their products, services or whatever they provide.
-
-Also add home APIs to list 4 products from each seller category.
-
-for the products there will be product categories.
-Create api for listing products based on seller cateogry.
-
-
-Seller Categories Below:
-
-Restaurant Register Fields
-
-Business Name
-Business Email
-Business Phone
-Password
-Confirm Password
-
-Business Address
-Country
-State
-City
-Zip Code
-
-(all required)
-Operating Hours (Monday, start & end time)
-
-Menu (image) or 
-enter manually (many)
-Cuisine Type, 
-DishName,
-Price
-Quantity
-
-delivery partner details
-Name
-Phone
-Social Security Number
-
-documentation & Licensing Details
-Text Identification
-Proof of Business Registration
-Food safety certifications or health permits
-
-============================
-
-Apparel Register Fields
-
-Business Name
-Business Email
-Business Phone
-Password
-Confirm Password
-Business Address
-Country
-State
-City
-Zip Code
-
-
-Fleet
-Register Fields
-Business Name
-Business Email
-Business Phone
-Password
-Confirm Password
-Business Address
-Country
-State
-City
-Zip Code
-
-verify identity
-government-issued id
-(driver’s license, passport etc)
-
-vehicle information
-No of Vehicles
-vehicle 1 details
-Name
-Vehicle Photos
-Make
-Model
-Year
-Mileage
-Rate (Start Time, Amount, Hourly)
-License Number
-Registration Date
-Registration Document (file)
-Insurance Document (file)
-
-============================
-
-Automobile Sales Representative Register Fields
-Business Name
-Business Email
-Business Phone
-Password
-Confirm Password
-Business Address
-Country
-State
-City
-Zip Code
-
-verify identity
-government-issued id
-(driver’s license, passport etc)
-
-professional details
-Years of experience
-Specialization (checkbox)
-1) used card,
-2) Luxury Vehicles
-3) New Cars,
-4) Electric Vehicles
-
-vehicle information
-No of Vehicles
-vehicle 1 details
-Name
-Vehicle Photos
-Make
-Model
-Year
-Mileage
-Rate (Start Time, Amount, Hourly)
-License Number
-Registration Date
-Registration Document (file)
-Insurance Document (file)
-
-============================
-
-Car Rental Marketplace Register Fields
-Business Name
-Business Email
-Business Phone
-Password
-Confirm Password
-Business Address
-Country
-State
-City
-Zip Code
-
-verify identity
-government-issued id
-(driver’s license, passport etc)
-
-documentation & Licensing
-Business Registration Certificate(file)
-
-vehicle information
-No of Vehicles
-vehicle 1 details
-Name
-Vehicle Photos
-Make
-Model
-Year
-Mileage
-Rate (Start Time, Amount, Hourly)
-License Number
-Registration Date
-Registration Document (file)
-Insurance Document (file)
-
-============================
-
-Automobile Sales Representative Register Fields
-Business Name
-Business Email
-Business Phone
-Password
-Confirm Password
-Business Address
-Country
-State
-City
-Zip Code
-
-verify identity
-government-issued id
-(driver’s license, passport etc)
-
-professional details
-Years of experience
-Specialization (checkbox)
-1) used card,
-2) Luxury Vehicles
-3) New Cars,
-4) Electric Vehicles
-
-vehicle information
-No of Vehicles
-vehicle 1 details
-Name
-Vehicle Photos
-Make
-Model
-Year
-Mileage
-Rate (Start Time, Amount, Hourly)
-License Number
-Registration Date
-Registration Document (file)
-Insurance Document (file)
-
-============================
-
-Car Rental Marketplace Register Fields
-Business Name
-Business Email
-Business Phone
-Password
-Confirm Password
-Business Address
-Country
-State
-City
-Zip Code
-
-verify identity
-government-issued id
-(driver’s license, passport etc)
-
-documentation & Licensing
-Business Registration Certificate(file)
-
-vehicle information
-No of Vehicles
-vehicle 1 details
-Name
-Vehicle Photos
-Make
-Model
-Year
-Mileage
-Rate (Start Time, Amount, Hourly)
-License Number
-Registration Date
-Registration Document (file)
-Insurance Document (file)
-
-============================
-
-Car Wash Register Fields
-Business Name
-Business Email
-Business Phone
-Password
-Confirm Password
-Business Address
-Country
-State
-City
-Zip Code
-
-verify identity
-government-issued id
-(driver’s license, passport etc)
-
-documentation & Licensing
-Business Registration Certificate(file)
-
-Operating Hours
-(Monday, start & end time)
-
-Pricing & Service information
-Service Packages (number)
-package 1 details
-Name
-Car Type
-Service Type
-Price
-
-============================
-
-Insurance Marketplace Register Fields
-Business Name
-Business Email
-Business Phone
-Password
-Confirm Password
-Business Address
-Country
-State
-City
-Zip Code
-
-verify identity
-government-issued id
-(driver’s license, passport etc)
-
-documentation & Licensing
-Business Registration Certificate(file)
-Insurance License Number
-Expiry Date of license
-
-insurance offerings
-
-insurance offering 1
-Insurance Offering Name (dropdown)
-Insurance Type (dropdown)
-Coverage Option (checkbox)
-1) Basic, 2) Standard, 3) Premium
-Rate (Basic)*
-Description
-
-============================
-
-Digital Bookstore Register Fields
-Business Name
-Business Email
-Business Phone
-Password
-Confirm Password
-Business Address
-Country
-State
-City
-Zip Code
-
-verify identity
-government-issued id
-(driver’s license, passport etc)
-
-documentation & Licensing
-Business Registration Certificate(file)
-
-books details
-Upload Books (csv) (exists sample)
-or add manually
-Book Title
-Book Author
-Book Price
-Book Genre
-Upload Book Cover (file)
-Format (dropdown)
-Upload Book File (file)
-
-============================
-
-Real Estate Brooker Register Fields
-Business Name
-Business Email
-Business Phone
-Password
-Confirm Password
-Business Address
-Country
-State
-City
-Zip Code
-
-verify identity
-government-issued id
-(driver’s license, passport etc)
-
-documentation & Licensing
-Business Registration Certificate(file)
-
-property details
-List Properties
-Upload CSV (exists sample)
-or add manually
-Property Title
-Property Type (dropdown)
-Features (dropdown) (multiple)
-Property Listing Type (radio)
-1) Sale 2) Rent
-Price
-Address
-City
-Zipcode
-Size
-No of Bedrooms
-Other Features (optional)
-Upload Images (multiple)
-
-============================
-
-Black Clothing Lines & Accessories Register Fields
-Business Name
-Business Email
-Business Phone
-Password
-Confirm Password
-Business Address
-Country
-State
-City
-Zip Code
-
-verify identity
-government-issued id
-(driver’s license, passport etc)
-
-============================
-
-LegalShield Marketplace Register Fields
-Business Name
-Business Email
-Business Phone
-Password
-Confirm Password
-Business Address
-Country
-State
-City
-Zip Code
-
-verify identity
-government-issued id
-(driver’s license, passport etc)
-
-documentation & Licensing
-Business Registration Certificate(file)
-Professional License (file)
-
-service details
-Service Name (dropdown)
-Description Of Service
-Pricing Model (radio)
-1) Flat Fee 2) Hourly Rate
-Price
-
-Operating Hours
-(Monday, start & end time)
-
-
-============================
-
-
-Barbar Beauty Salon Register Fields
-Business Name
-Business Email
-Business Phone
-Password
-Confirm Password
-Business Address
-Country
-State
-City
-Zip Code
-
-verify identity
-government-issued id
-(driver’s license, passport etc)
-
-Operating Hours
-(Monday, start & end time)
-
-Menu Details
-Upload Menu (file)
-or enter menu manually
-Service Name
-Service Category (categories)
-Service Description
-
-(add more fields)
-Price, Duration, Discount (optional)
-
-============================
-
-Personal Injury Attorney Register Fields
-Business Name
-Business Email
-Business Phone
-Password
-Confirm Password
-Business Address
-Country
-State
-City
-Zip Code
-
-verify identity
-government-issued id
-(driver’s license, passport etc)
-
-legal credentials & verifications
-Bar Association Number
-Years of Experience
-
-Upload Certificate
-Upload legal Certifications (file)
-
-insurance offerings
-
-insurance offering 1
-Insurance Offering Name (dropdown)
-Insurance Type (dropdown)
-Coverage Option (checkbox)
-1) Basic, 2) Standard, 3) Premium
-Rate (Basic)*
-Description
-
-
-============================
-
-
-Mississippi Catfish Company Register Fields
-Business Name
-Business Email
-Business Phone
-Password
-Confirm Password
-Business Address
-Country
-State
-City
-Zip Code
-
-verify identity
-government-issued id
-(driver’s license, passport etc)
-
-Upload Menu
-Upload menu (csv) (exists sample)
-or add manually
-What do you sell? (checkbox)
-1) Fresh Catfish 2) Other Seafood
-3) Packaged/Frozen
-Upload Photo
-Price
-Quantity
+---
+Generated: API-focused README for Vellenum

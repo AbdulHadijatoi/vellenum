@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\OTPCode;
 use App\Models\User;
 use App\Models\Seller;
 use App\Models\SellerCategory;
+use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -29,8 +31,21 @@ class AuthController extends Controller
             'state' => 'required|string|max:100',
             'city' => 'required|string|max:100',
             'zip_code' => 'required|string|max:20',
-            'seller_category_id' => 'required|exists:seller_categories,id',
-            'role' => 'required|in:admin,seller,buyer',
+            'seller_category_id' => 'nullable|exists:seller_categories,id',
+            // File uploads (optional) - accept common document/image types up to 10MB
+            'text_identification_file' => 'nullable|file|max:10240',
+            'proof_of_business_registration_file' => 'nullable|file|max:10240',
+            'food_safety_certifications_file' => 'nullable|file|max:10240',
+            'government_issued_id_file' => 'nullable|file|max:10240',
+            'business_registration_certificate_file' => 'nullable|file|max:10240',
+            'professional_license_file' => 'nullable|file|max:10240',
+            'legal_certifications_file' => 'nullable|file|max:10240',
+            'vehicle_registration_document_file' => 'nullable|file|max:10240',
+            'vehicle_insurance_document_file' => 'nullable|file|max:10240',
+            'book_cover_file' => 'nullable|file|max:10240',
+            'book_file' => 'nullable|file|max:10240',
+            'product_photo_file' => 'nullable|file|max:10240',
+            'role' => 'required|in:seller,buyer',
         ]);
 
         if ($validator->fails()) {
@@ -87,25 +102,70 @@ class AuthController extends Controller
             $sellerData['user_id'] = $user->id;
             $sellerData['seller_category_id'] = $request->seller_category_id;
 
+            // Map uploaded files to File model records and set seller file_id columns
+            $fileFieldMap = [
+                'text_identification_file' => 'text_identification_file_id',
+                'proof_of_business_registration_file' => 'proof_of_business_registration_file_id',
+                'food_safety_certifications_file' => 'food_safety_certifications_file_id',
+                'government_issued_id_file' => 'government_issued_id_file_id',
+                'business_registration_certificate_file' => 'business_registration_certificate_file_id',
+                'professional_license_file' => 'professional_license_file_id',
+                'legal_certifications_file' => 'legal_certifications_file_id',
+                'vehicle_registration_document_file' => 'vehicle_registration_document_file_id',
+                'vehicle_insurance_document_file' => 'vehicle_insurance_document_file_id',
+                'book_cover_file' => 'book_cover_file_id',
+                'book_file' => 'book_file_id',
+                'product_photo_file' => 'product_photo_file_id',
+            ];
+
+            foreach ($fileFieldMap as $reqKey => $sellerKey) {
+                if ($request->hasFile($reqKey)) {
+                    $uploaded = $request->file($reqKey);
+                    $originalName = $uploaded->getClientOriginalName();
+                    $extension = $uploaded->getClientOriginalExtension();
+                    $mimeType = $uploaded->getMimeType();
+                    $size = $uploaded->getSize();
+
+                    $filename = Str::uuid() . '.' . $extension;
+                    $path = $uploaded->storeAs('files', $filename, 'public');
+
+                    $file = File::create([
+                        'original_name' => $originalName,
+                        'filename' => $filename,
+                        'path' => $path,
+                        'mime_type' => $mimeType,
+                        'extension' => $extension,
+                        'size' => $size,
+                        'disk' => 'public',
+                        'category' => 'seller_document',
+                        'description' => null,
+                        'uploaded_by' => $user->id,
+                        'is_public' => true,
+                    ]);
+
+                    $sellerData[$sellerKey] = $file->id;
+                }
+            }
+
             Seller::create($sellerData);
         }
 
-        // Generate OTP for email verification
-        $otp = rand(100000, 999999);
-        $user->update([
-            'otp' => $otp,
-            'otp_expires_at' => Carbon::now()->addMinutes(10)
-        ]);
+        // // Generate OTP for email verification
+        // $otp = rand(100000, 999999);
+        // $user->update([
+        //     'otp' => $otp,
+        //     'otp_expires_at' => Carbon::now()->addMinutes(10)
+        // ]);
 
         // TODO: Send OTP via email when SMTP is configured
         // For now, return OTP in response as requested
         return response()->json([
             'success' => true,
-            'message' => 'User registered successfully. Please verify your email.',
+            'message' => 'User registered successfully.',
             'data' => [
                 'user' => $user,
-                'otp' => $otp, // Remove this when email is implemented
-                'otp_expires_at' => $user->otp_expires_at
+                // 'otp' => $otp, // Remove this when email is implemented
+                // 'otp_expires_at' => $user->otp_expires_at
             ]
         ], 201);
     }
@@ -157,7 +217,7 @@ class AuthController extends Controller
     public function sendOtp(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|exists:users,email',
+            'email' => 'required|email',
         ]);
 
         if ($validator->fails()) {
@@ -168,13 +228,9 @@ class AuthController extends Controller
             ], 422);
         }
 
-        $user = User::where('email', $request->email)->first();
-        $otp = rand(100000, 999999);
+        $otp = new OTPCode();
 
-        $user->update([
-            'otp' => $otp,
-            'otp_expires_at' => Carbon::now()->addMinutes(10)
-        ]);
+        $otp = $otp->generateOtp($request->email);
 
         // TODO: Send OTP via email when SMTP is configured
         // For now, return OTP in response as requested
@@ -182,8 +238,8 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'OTP sent successfully',
             'data' => [
-                'otp' => $otp, // Remove this when email is implemented
-                'otp_expires_at' => $user->otp_expires_at
+                'otp' => $otp->otp_code,
+                'otp_expires_at' => $otp->expires_at
             ]
         ]);
     }
@@ -203,27 +259,24 @@ class AuthController extends Controller
             ], 422);
         }
 
-        $user = User::where('email', $request->email)->first();
+        $otp = OTPCode::where('email', $request->email)->latest('id')->first();
 
-        if (!$user->otp || $user->otp !== $request->otp) {
+        if (!$otp || $otp->otp_code !== $request->otp) {
             return response()->json([
                 'success' => false,
                 'message' => 'Invalid OTP'
             ], 400);
         }
 
-        if ($user->otp_expires_at < Carbon::now()) {
+        if (!$otp->isValid()) {
             return response()->json([
                 'success' => false,
                 'message' => 'OTP has expired'
             ], 400);
         }
 
-        $user->update([
-            'is_verified' => true,
-            'otp' => null,
-            'otp_expires_at' => null
-        ]);
+        $otp->is_used = true;
+        $otp->save();
 
         return response()->json([
             'success' => true,
