@@ -78,25 +78,26 @@ class AuthController extends Controller
         // If seller, create seller record
         if ($request->role === 'seller') {
             $sellerData = $request->only([
-                'operating_hours', 'menu_items', 'service_packages', 'insurance_offerings',
-                'books_details', 'property_details', 'vehicle_information',
-                'delivery_partner_name', 'delivery_partner_phone', 'delivery_partner_ssn',
-                'text_identification', 'proof_of_business_registration', 'food_safety_certifications',
-                'government_issued_id', 'business_registration_certificate', 'professional_license',
-                'insurance_license_number', 'license_expiry_date', 'bar_association_number',
-                'years_of_experience', 'legal_certifications', 'specialization', 'pricing_model',
-                'price', 'service_description', 'cuisine_type', 'service_name', 'service_category',
-                'insurance_offering_name', 'insurance_type', 'coverage_options', 'rate_basic',
-                'property_title', 'property_type', 'property_features', 'property_listing_type',
-                'property_price', 'property_address', 'property_city', 'property_zipcode',
-                'property_size', 'bedrooms', 'other_features', 'number_of_vehicles',
-                'vehicle_name', 'vehicle_photos', 'vehicle_make', 'vehicle_model',
-                'vehicle_year', 'vehicle_mileage', 'vehicle_license_number',
-                'vehicle_registration_date', 'vehicle_registration_document',
-                'vehicle_insurance_document', 'rate_start_time', 'rate_amount', 'rate_type',
-                'book_title', 'book_author', 'book_price', 'book_genre', 'book_cover',
-                'book_format', 'book_file', 'what_you_sell', 'product_photo',
-                'product_price', 'product_quantity', 'license_number'
+                'operating_hours',
+                'menu_items',
+                'service_packages',
+                'insurance_offerings',
+                'books_details',
+                'property_details',
+                'product_details',
+                'vehicle_information',
+                'delivery_partner_name', 
+                'delivery_partner_phone', 
+                'delivery_partner_ssn',
+                'text_identification',
+                'license_number',
+                'insurance_license_number',
+                'license_expiry_date',
+                'bar_association_number',
+                'years_of_experience',
+                'specialization',
+                'pricing_model',
+                'price'
             ]);
 
             $sellerData['user_id'] = $user->id;

@@ -87,7 +87,7 @@
                 { "key": "delivery_partner_phone", "value": "+15550987654", "type": "text" },
                 { "key": "delivery_partner_ssn", "value": "123-45-6789", "type": "text" },
                 { "key": "license_number", "type": "text", "src": [] },
-                { "key": "proof_of_business_registration_file", "type": "file", "src": [] },
+                { "key": "business_registration_certificate_file", "type": "file", "src": [] },
                 { "key": "food_safety_certifications_file", "type": "file", "src": [] }
               ]
             },
@@ -146,7 +146,8 @@
                 { "key": "zip_code", "value": "33101", "type": "text" },
                 { "key": "seller_category_id", "value": "3", "type": "text" },
                 { "key": "role", "value": "seller", "type": "text" },
-                { "key": "government_issued_id", "value": "DL-1234567", "type": "text" }
+                { "key": "vehicle_information", "value": "{\"number_of_vehicles\":2,\"vehicles\":[{\"vehicle_name\":\"Van A\",\"make\":\"Ford\",\"model\":\"Transit\",\"year\":2018,\"mileage\":50000,\"rate_start_time\":\"08:00\",\"rate_amount\":25}]}", "type": "text" },
+                { "key": "government_issued_id_file", "type": "file", "src": [] }
               ]
             },
             "url": { "raw": "{{base_url}}/api/auth/register", "host": ["{{base_url}}"], "path": ["api","auth","register"] }
@@ -175,22 +176,12 @@
                 { "key": "zip_code", "value": "48201", "type": "text" },
                 { "key": "seller_category_id", "value": "4", "type": "text" },
                 { "key": "role", "value": "seller", "type": "text" },
-                { "key": "government_issued_id", "value": "ID-987654", "type": "text" },
+                { "key": "license_number", "type": "text", "src": [] },
                 { "key": "years_of_experience", "value": "5", "type": "text" },
                 { "key": "specialization", "value": "[\"used cars\",\"luxury vehicles\"]", "type": "text" },
                 { "key": "vehicle_information", "value": "{\"number_of_vehicles\":1,\"vehicles\":[{\"vehicle_name\":\"Car A\",\"make\":\"Toyota\",\"model\":\"Camry\",\"year\":2020}]}", "type": "text" },
-                { "key": "license_number", "type": "text", "src": [] },
-                { "key": "proof_of_business_registration_file", "type": "file", "src": [] },
-                { "key": "food_safety_certifications_file", "type": "file", "src": [] },
                 { "key": "government_issued_id_file", "type": "file", "src": [] },
-                { "key": "business_registration_certificate_file", "type": "file", "src": [] },
-                { "key": "professional_license_file", "type": "file", "src": [] },
-                { "key": "legal_certifications_file", "type": "file", "src": [] },
-                { "key": "vehicle_registration_document_file", "type": "file", "src": [] },
-                { "key": "vehicle_insurance_document_file", "type": "file", "src": [] },
-                { "key": "book_cover_file", "type": "file", "src": [] },
-                { "key": "book_file", "type": "file", "src": [] },
-                { "key": "product_photo_file", "type": "file", "src": [] }
+                { "key": "business_registration_certificate_file", "type": "file", "src": [] }
               ]
             },
             "url": { "raw": "{{base_url}}/api/auth/register", "host": ["{{base_url}}"], "path": ["api","auth","register"] }
@@ -219,20 +210,10 @@
                 { "key": "zip_code", "value": "90001", "type": "text" },
                 { "key": "seller_category_id", "value": "5", "type": "text" },
                 { "key": "role", "value": "seller", "type": "text" },
-                { "key": "government_issued_id", "value": "ID-55555", "type": "text" },
                 { "key": "business_registration_certificate_file", "type": "file", "src": [] },
-                { "key": "vehicle_information", "value": "{\"number_of_vehicles\":3}", "type": "text" },
-                { "key": "license_number", "type": "text", "src": [] },
-                { "key": "proof_of_business_registration_file", "type": "file", "src": [] },
-                { "key": "food_safety_certifications_file", "type": "file", "src": [] },
                 { "key": "government_issued_id_file", "type": "file", "src": [] },
-                { "key": "professional_license_file", "type": "file", "src": [] },
-                { "key": "legal_certifications_file", "type": "file", "src": [] },
-                { "key": "vehicle_registration_document_file", "type": "file", "src": [] },
-                { "key": "vehicle_insurance_document_file", "type": "file", "src": [] },
-                { "key": "book_cover_file", "type": "file", "src": [] },
-                { "key": "book_file", "type": "file", "src": [] },
-                { "key": "product_photo_file", "type": "file", "src": [] }
+                { "key": "proof_of_business_registration_file", "type": "file", "src": [] },
+                { "key": "vehicle_information", "value": "{\"number_of_vehicles\":3}", "type": "text" }
               ]
             },
             "url": { "raw": "{{base_url}}/api/auth/register", "host": ["{{base_url}}"], "path": ["api","auth","register"] }
@@ -261,21 +242,10 @@
                 { "key": "zip_code", "value": "30301", "type": "text" },
                 { "key": "seller_category_id", "value": "6", "type": "text" },
                 { "key": "role", "value": "seller", "type": "text" },
-                { "key": "government_issued_id", "value": "DL-444444", "type": "text" },
-                { "key": "operating_hours", "value": "{\"monday\":{\"start\":\"08:00\",\"end\":\"18:00\"}}", "type": "text" },
-                { "key": "service_packages", "value": "[{\"name\":\"Deluxe\",\"car_type\":\"Sedan\",\"service_type\":\"Full Wash\",\"price\":29.99}]", "type": "text" },
-                { "key": "license_number", "type": "text", "src": [] },
-                { "key": "proof_of_business_registration_file", "type": "file", "src": [] },
-                { "key": "food_safety_certifications_file", "type": "file", "src": [] },
                 { "key": "government_issued_id_file", "type": "file", "src": [] },
                 { "key": "business_registration_certificate_file", "type": "file", "src": [] },
-                { "key": "professional_license_file", "type": "file", "src": [] },
-                { "key": "legal_certifications_file", "type": "file", "src": [] },
-                { "key": "vehicle_registration_document_file", "type": "file", "src": [] },
-                { "key": "vehicle_insurance_document_file", "type": "file", "src": [] },
-                { "key": "book_cover_file", "type": "file", "src": [] },
-                { "key": "book_file", "type": "file", "src": [] },
-                { "key": "product_photo_file", "type": "file", "src": [] }
+                { "key": "operating_hours", "value": "{\"monday\":{\"start\":\"08:00\",\"end\":\"18:00\"}}", "type": "text" },
+                { "key": "service_packages", "value": "[{\"name\":\"Deluxe\",\"car_type\":\"Sedan\",\"service_type\":\"Full Wash\",\"price\":29.99}]", "type": "text" }
               ]
             },
             "url": { "raw": "{{base_url}}/api/auth/register", "host": ["{{base_url}}"], "path": ["api","auth","register"] }
@@ -304,21 +274,11 @@
                 { "key": "zip_code", "value": "60601", "type": "text" },
                 { "key": "seller_category_id", "value": "7", "type": "text" },
                 { "key": "role", "value": "seller", "type": "text" },
+                { "key": "government_issued_id_file", "type": "file", "src": [] },
                 { "key": "insurance_license_number", "value": "LIC-1001", "type": "text" },
                 { "key": "license_expiry_date", "value": "2026-12-31", "type": "text" },
                 { "key": "insurance_offerings", "value": "[{\"name\":\"Basic Plan\",\"type\":\"Liability\",\"coverage_options\":[\"Basic\"],\"rate_basic\":49.99,\"description\":\"Basic coverage\"}]", "type": "text" },
-                { "key": "license_number", "type": "text", "src": [] },
-                { "key": "proof_of_business_registration_file", "type": "file", "src": [] },
-                { "key": "food_safety_certifications_file", "type": "file", "src": [] },
-                { "key": "government_issued_id_file", "type": "file", "src": [] },
-                { "key": "business_registration_certificate_file", "type": "file", "src": [] },
-                { "key": "professional_license_file", "type": "file", "src": [] },
-                { "key": "legal_certifications_file", "type": "file", "src": [] },
-                { "key": "vehicle_registration_document_file", "type": "file", "src": [] },
-                { "key": "vehicle_insurance_document_file", "type": "file", "src": [] },
-                { "key": "book_cover_file", "type": "file", "src": [] },
-                { "key": "book_file", "type": "file", "src": [] },
-                { "key": "product_photo_file", "type": "file", "src": [] }
+                { "key": "business_registration_certificate_file", "type": "file", "src": [] }
               ]
             },
             "url": { "raw": "{{base_url}}/api/auth/register", "host": ["{{base_url}}"], "path": ["api","auth","register"] }
@@ -347,19 +307,9 @@
                 { "key": "zip_code", "value": "02108", "type": "text" },
                 { "key": "seller_category_id", "value": "8", "type": "text" },
                 { "key": "role", "value": "seller", "type": "text" },
-                { "key": "books_details", "value": "[{\"book_title\":\"The Great Book\",\"book_author\":\"A. Author\",\"book_price\":9.99,\"book_genre\":\"Fiction\",\"book_format\":\"epub\"}]", "type": "text" },
-                { "key": "license_number", "type": "text", "src": [] },
-                { "key": "proof_of_business_registration_file", "type": "file", "src": [] },
-                { "key": "food_safety_certifications_file", "type": "file", "src": [] },
                 { "key": "government_issued_id_file", "type": "file", "src": [] },
                 { "key": "business_registration_certificate_file", "type": "file", "src": [] },
-                { "key": "professional_license_file", "type": "file", "src": [] },
-                { "key": "legal_certifications_file", "type": "file", "src": [] },
-                { "key": "vehicle_registration_document_file", "type": "file", "src": [] },
-                { "key": "vehicle_insurance_document_file", "type": "file", "src": [] },
-                { "key": "book_cover_file", "type": "file", "src": [] },
-                { "key": "book_file", "type": "file", "src": [] },
-                { "key": "product_photo_file", "type": "file", "src": [] }
+                { "key": "books_details", "value": "[{\"book_title\":\"The Great Book\",\"book_author\":\"A. Author\",\"book_price\":9.99,\"book_genre\":\"Fiction\",\"book_format\":\"epub\"}]", "type": "text" }
               ]
             },
             "url": { "raw": "{{base_url}}/api/auth/register", "host": ["{{base_url}}"], "path": ["api","auth","register"] }
@@ -388,19 +338,9 @@
                 { "key": "zip_code", "value": "92101", "type": "text" },
                 { "key": "seller_category_id", "value": "9", "type": "text" },
                 { "key": "role", "value": "seller", "type": "text" },
-                { "key": "property_details", "value": "[{\"property_title\":\"Cozy Cottage\",\"property_type\":\"House\",\"property_price\":250000,\"property_address\":\"1 Ocean View\",\"bedrooms\":3}]", "type": "text" },
-                { "key": "license_number", "type": "text", "src": [] },
-                { "key": "proof_of_business_registration_file", "type": "file", "src": [] },
-                { "key": "food_safety_certifications_file", "type": "file", "src": [] },
                 { "key": "government_issued_id_file", "type": "file", "src": [] },
                 { "key": "business_registration_certificate_file", "type": "file", "src": [] },
-                { "key": "professional_license_file", "type": "file", "src": [] },
-                { "key": "legal_certifications_file", "type": "file", "src": [] },
-                { "key": "vehicle_registration_document_file", "type": "file", "src": [] },
-                { "key": "vehicle_insurance_document_file", "type": "file", "src": [] },
-                { "key": "book_cover_file", "type": "file", "src": [] },
-                { "key": "book_file", "type": "file", "src": [] },
-                { "key": "product_photo_file", "type": "file", "src": [] }
+                { "key": "property_details", "value": "[{\"property_title\":\"Cozy Cottage\",\"property_type\":\"House\",\"property_price\":250000,\"property_address\":\"1 Ocean View\",\"bedrooms\":3}]", "type": "text" }
               ]
             },
             "url": { "raw": "{{base_url}}/api/auth/register", "host": ["{{base_url}}"], "path": ["api","auth","register"] }
@@ -429,18 +369,7 @@
                 { "key": "zip_code", "value": "28202", "type": "text" },
                 { "key": "seller_category_id", "value": "10", "type": "text" },
                 { "key": "role", "value": "seller", "type": "text" },
-                { "key": "license_number", "type": "text", "src": [] },
-                { "key": "proof_of_business_registration_file", "type": "file", "src": [] },
-                { "key": "food_safety_certifications_file", "type": "file", "src": [] },
-                { "key": "government_issued_id_file", "type": "file", "src": [] },
-                { "key": "business_registration_certificate_file", "type": "file", "src": [] },
-                { "key": "professional_license_file", "type": "file", "src": [] },
-                { "key": "legal_certifications_file", "type": "file", "src": [] },
-                { "key": "vehicle_registration_document_file", "type": "file", "src": [] },
-                { "key": "vehicle_insurance_document_file", "type": "file", "src": [] },
-                { "key": "book_cover_file", "type": "file", "src": [] },
-                { "key": "book_file", "type": "file", "src": [] },
-                { "key": "product_photo_file", "type": "file", "src": [] }
+                { "key": "government_issued_id_file", "type": "file", "src": [] }
               ]
             },
             "url": { "raw": "{{base_url}}/api/auth/register", "host": ["{{base_url}}"], "path": ["api","auth","register"] }
@@ -470,23 +399,44 @@
                 { "key": "seller_category_id", "value": "11", "type": "text" },
                 { "key": "role", "value": "seller", "type": "text" },
                 { "key": "professional_license", "value": "file_310", "type": "text" },
-                { "key": "bar_association_number", "value": "BAR-2020", "type": "text" },
                 { "key": "years_of_experience", "value": "8", "type": "text" },
                 { "key": "service_name", "value": "Personal Injury Consultation", "type": "text" },
                 { "key": "pricing_model", "value": "hourly", "type": "text" },
                 { "key": "price", "value": "200", "type": "text" },
-                { "key": "license_number", "type": "text", "src": [] },
-                { "key": "proof_of_business_registration_file", "type": "file", "src": [] },
-                { "key": "food_safety_certifications_file", "type": "file", "src": [] },
                 { "key": "government_issued_id_file", "type": "file", "src": [] },
                 { "key": "business_registration_certificate_file", "type": "file", "src": [] },
                 { "key": "professional_license_file", "type": "file", "src": [] },
-                { "key": "legal_certifications_file", "type": "file", "src": [] },
-                { "key": "vehicle_registration_document_file", "type": "file", "src": [] },
-                { "key": "vehicle_insurance_document_file", "type": "file", "src": [] },
-                { "key": "book_cover_file", "type": "file", "src": [] },
-                { "key": "book_file", "type": "file", "src": [] },
-                { "key": "product_photo_file", "type": "file", "src": [] }
+                { "key": "operating_hours", "value": "{\"monday\":{\"start\":\"08:00\",\"end\":\"18:00\"}}", "type": "text" }
+              ]
+            },
+            "url": { "raw": "{{base_url}}/api/auth/register", "host": ["{{base_url}}"], "path": ["api","auth","register"] }
+          }
+        },
+        {
+          "name": "Register - Retail Store",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Accept", "value": "application/json" } ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "name", "value": "Downtown Barber", "type": "text" },
+                { "key": "email", "value": "barber@example.com", "type": "text" },
+                { "key": "password", "value": "password123", "type": "text" },
+                { "key": "password_confirmation", "value": "password123", "type": "text" },
+                { "key": "phone", "value": "+15551230001", "type": "text" },
+                { "key": "business_name", "value": "Downtown Barber", "type": "text" },
+                { "key": "business_email", "value": "bookings@downtownbarber.com", "type": "text" },
+                { "key": "business_phone", "value": "+15551230001", "type": "text" },
+                { "key": "business_address", "value": "22 Groom St", "type": "text" },
+                { "key": "country", "value": "USA", "type": "text" },
+                { "key": "state", "value": "OR", "type": "text" },
+                { "key": "city", "value": "Portland", "type": "text" },
+                { "key": "zip_code", "value": "97035", "type": "text" },
+                { "key": "seller_category_id", "value": "12", "type": "text" },
+                { "key": "role", "value": "seller", "type": "text" },
+                { "key": "government_issued_id_file", "type": "file", "src": [] },
+                { "key": "product_details", "value": "[{\"service_name\":\"Haircut\",\"service_category\":\"Hair\",\"service_description\":\"Classic haircut\",\"price\":25,\"duration\":30}]", "type": "text" }
               ]
             },
             "url": { "raw": "{{base_url}}/api/auth/register", "host": ["{{base_url}}"], "path": ["api","auth","register"] }
@@ -514,21 +464,10 @@
                 { "key": "city", "value": "Portland", "type": "text" },
                 { "key": "zip_code", "value": "97035", "type": "text" },
                 { "key": "seller_category_id", "value": "12", "type": "text" },
+                { "key": "government_issued_id_file", "type": "file", "src": [] },
                 { "key": "role", "value": "seller", "type": "text" },
                 { "key": "operating_hours", "value": "{\"monday\":{\"start\":\"10:00\",\"end\":\"19:00\"}}", "type": "text" },
-                { "key": "service_packages", "value": "[{\"service_name\":\"Haircut\",\"service_category\":\"Hair\",\"service_description\":\"Classic haircut\",\"price\":25,\"duration\":30}]", "type": "text" },
-                { "key": "license_number", "type": "text", "src": [] },
-                { "key": "proof_of_business_registration_file", "type": "file", "src": [] },
-                { "key": "food_safety_certifications_file", "type": "file", "src": [] },
-                { "key": "government_issued_id_file", "type": "file", "src": [] },
-                { "key": "business_registration_certificate_file", "type": "file", "src": [] },
-                { "key": "professional_license_file", "type": "file", "src": [] },
-                { "key": "legal_certifications_file", "type": "file", "src": [] },
-                { "key": "vehicle_registration_document_file", "type": "file", "src": [] },
-                { "key": "vehicle_insurance_document_file", "type": "file", "src": [] },
-                { "key": "book_cover_file", "type": "file", "src": [] },
-                { "key": "book_file", "type": "file", "src": [] },
-                { "key": "product_photo_file", "type": "file", "src": [] }
+                { "key": "service_packages", "value": "[{\"service_name\":\"Haircut\",\"service_category\":\"Hair\",\"service_description\":\"Classic haircut\",\"price\":25,\"duration\":30}]", "type": "text" }
               ]
             },
             "url": { "raw": "{{base_url}}/api/auth/register", "host": ["{{base_url}}"], "path": ["api","auth","register"] }
@@ -556,22 +495,12 @@
                 { "key": "city", "value": "Albany", "type": "text" },
                 { "key": "zip_code", "value": "12207", "type": "text" },
                 { "key": "seller_category_id", "value": "13", "type": "text" },
+                { "key": "government_issued_id_file", "type": "file", "src": [] },
                 { "key": "role", "value": "seller", "type": "text" },
                 { "key": "bar_association_number", "value": "BAR-9001", "type": "text" },
                 { "key": "years_of_experience", "value": "12", "type": "text" },
                 { "key": "legal_certifications", "value": "file_401", "type": "text" },
-                { "key": "license_number", "type": "text", "src": [] },
-                { "key": "proof_of_business_registration_file", "type": "file", "src": [] },
-                { "key": "food_safety_certifications_file", "type": "file", "src": [] },
-                { "key": "government_issued_id_file", "type": "file", "src": [] },
-                { "key": "business_registration_certificate_file", "type": "file", "src": [] },
-                { "key": "professional_license_file", "type": "file", "src": [] },
-                { "key": "legal_certifications_file", "type": "file", "src": [] },
-                { "key": "vehicle_registration_document_file", "type": "file", "src": [] },
-                { "key": "vehicle_insurance_document_file", "type": "file", "src": [] },
-                { "key": "book_cover_file", "type": "file", "src": [] },
-                { "key": "book_file", "type": "file", "src": [] },
-                { "key": "product_photo_file", "type": "file", "src": [] }
+                { "key": "insurance_offerings", "value": "[{\"name\":\"Basic Plan\",\"type\":\"Liability\",\"coverage_options\":[\"Basic\"],\"rate_basic\":49.99,\"description\":\"Basic coverage\"}]", "type": "text" }
               ]
             },
             "url": { "raw": "{{base_url}}/api/auth/register", "host": ["{{base_url}}"], "path": ["api","auth","register"] }
@@ -599,22 +528,9 @@
                 { "key": "city", "value": "Jackson", "type": "text" },
                 { "key": "zip_code", "value": "39201", "type": "text" },
                 { "key": "seller_category_id", "value": "14", "type": "text" },
-                { "key": "role", "value": "seller", "type": "text" },
-                { "key": "what_you_sell", "value": "[\"Fresh Catfish\",\"Packaged\"]", "type": "text" },
-                { "key": "product_price", "value": "5.99", "type": "text" },
-                { "key": "product_quantity", "value": "100", "type": "text" },
-                { "key": "license_number", "type": "text", "src": [] },
-                { "key": "proof_of_business_registration_file", "type": "file", "src": [] },
-                { "key": "food_safety_certifications_file", "type": "file", "src": [] },
                 { "key": "government_issued_id_file", "type": "file", "src": [] },
-                { "key": "business_registration_certificate_file", "type": "file", "src": [] },
-                { "key": "professional_license_file", "type": "file", "src": [] },
-                { "key": "legal_certifications_file", "type": "file", "src": [] },
-                { "key": "vehicle_registration_document_file", "type": "file", "src": [] },
-                { "key": "vehicle_insurance_document_file", "type": "file", "src": [] },
-                { "key": "book_cover_file", "type": "file", "src": [] },
-                { "key": "book_file", "type": "file", "src": [] },
-                { "key": "product_photo_file", "type": "file", "src": [] }
+                { "key": "role", "value": "seller", "type": "text" },
+                { "key": "what_you_sell", "value": "[\"Fresh Catfish\",\"Packaged\"]", "type": "text" }
               ]
             },
             "url": { "raw": "{{base_url}}/api/auth/register", "host": ["{{base_url}}"], "path": ["api","auth","register"] }
