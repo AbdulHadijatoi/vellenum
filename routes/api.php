@@ -29,6 +29,7 @@ Route::prefix('auth')->group(function () {
 });
 
 // Public home routes
+Route::get('get-sellers', [SellerController::class, 'getSellers']);
 Route::prefix('home')->group(function () {
     Route::get('featured-products', [HomeController::class, 'getFeaturedProducts']);
     Route::get('seller-categories', [HomeController::class, 'getSellerCategories']);

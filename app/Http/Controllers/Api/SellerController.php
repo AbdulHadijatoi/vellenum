@@ -26,6 +26,15 @@ class SellerController extends Controller
         ]);
     }
 
+    public function getSellers(){
+        $sellers = Seller::with(['user', 'sellerCategory', 'proofOfBusinessRegistrationFile','foodSafetyCertificationsFile','governmentIssuedIdFile','businessRegistrationCertificateFile','professionalLicenseFile','legalCertificationsFile','vehicleRegistrationDocumentFile','vehicleInsuranceDocumentFile','bookCoverFile','bookFile','productPhotoFile'])->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $sellers
+        ]);
+    }
+
     public function getSellerProfile(Request $request)
     {
         $user = $request->user();
