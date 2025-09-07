@@ -11,13 +11,12 @@ class SellerCategory extends Model
 
     protected $fillable = [
         'name',
-        'slug',
         'description',
-        'is_active',
+        'status',
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
+        'status' => 'boolean',
     ];
 
     public function sellers()

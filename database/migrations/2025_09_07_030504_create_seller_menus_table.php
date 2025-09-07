@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('seller_categories', function (Blueprint $table) {
+        Schema::create('seller_menus', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('seller_id')->constrained()->onDelete('cascade');
             $table->string('name');
+            $table->string('category')->nullable();
             $table->text('description')->nullable();
-            $table->boolean('status')->default(true);
+            $table->decimal('price', 10, 2);
+            $table->string('duration')->nullable(); // e.g., "30 mins", "1 hour"
+            $table->string('discount')->nullable(); // e.g., "10%",
             $table->timestamps();
         });
     }
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('seller_categories');
+        Schema::dropIfExists('seller_menus');
     }
 };

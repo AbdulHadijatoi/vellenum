@@ -23,7 +23,7 @@ return new class extends Migration
             $table->json('images')->nullable(); // Store multiple images as JSON
             $table->string('type')->default('product'); // product, service, etc.
             $table->json('attributes')->nullable(); // Store additional attributes as JSON
-            $table->boolean('is_active')->default(true);
+            $table->boolean('status')->default(true);
             $table->boolean('is_featured')->default(false);
             $table->timestamps();
         });

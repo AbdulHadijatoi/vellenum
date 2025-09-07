@@ -12,12 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // Common fields for all user types
             $table->string('phone')->nullable();
-            $table->string('business_name')->nullable();
-            $table->string('business_email')->nullable();
-            $table->string('business_phone')->nullable();
-            $table->text('business_address')->nullable();
+            $table->string('address')->nullable();
             $table->string('country')->nullable();
             $table->string('state')->nullable();
             $table->string('city')->nullable();
@@ -25,8 +21,8 @@ return new class extends Migration
             $table->string('otp')->nullable();
             $table->timestamp('otp_expires_at')->nullable();
             $table->boolean('is_verified')->default(false);
-            $table->boolean('is_active')->default(true);
-            $table->string('profile_image')->nullable();
+            $table->boolean('status')->default(true);
+            $table->string('file_id')->nullable()->comment('Profile Image File ID');
         });
     }
 

@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('seller_categories', function (Blueprint $table) {
+        Schema::create('seller_specializations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->boolean('status')->default(true);
-            $table->timestamps();
+            $table->foreignId('seller_id')->constrained()->onDelete('cascade');
+            $table->foreignId('specialization_id')->constrained()->onDelete('cascade');
+            $table->unique(['seller_id', 'specialization_id']);
         });
     }
 
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('seller_categories');
+        Schema::dropIfExists('seller_specializations');
     }
 };

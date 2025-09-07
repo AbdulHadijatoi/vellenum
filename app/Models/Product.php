@@ -10,25 +10,25 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'seller_id',
-        'product_category_id',
-        'title',
-        'description',
-        'price',
-        'quantity',
-        'image_file_id',
-        'type',
-        'attributes',
-        'is_active',
-        'is_featured',
+        // 'seller_id',
+        // 'product_category_id',
+        // 'title',
+        // 'description',
+        // 'price',
+        // 'quantity',
+        // 'image_file_id',
+        // 'type',
+        // 'attributes',
+        // 'is_active',
+        // 'is_featured',
     ];
 
-    protected $casts = [
-        'attributes' => 'array',
-        'is_active' => 'boolean',
-        'is_featured' => 'boolean',
-        'price' => 'decimal:2',
-    ];
+    // protected $casts = [
+    //     'attributes' => 'array',
+    //     'is_active' => 'boolean',
+    //     'is_featured' => 'boolean',
+    //     'price' => 'decimal:2',
+    // ];
 
     public function seller()
     {

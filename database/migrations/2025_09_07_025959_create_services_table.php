@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('seller_categories', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->boolean('status')->default(true);
+            $table->string('pricing_model'); // e.g., hourly, fixed
+            $table->decimal('price', 10, 2);
+            $table->foreignId('seller_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('seller_categories');
+        Schema::dropIfExists('services');
     }
 };
