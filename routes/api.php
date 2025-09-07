@@ -6,6 +6,12 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\Api\SellerController;
 use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\BookController;
+use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\InsuranceOfferingController;
+use App\Http\Controllers\Api\SellerMenuController;
+use App\Http\Controllers\Api\VehicleController;
+use App\Http\Controllers\Api\PropertyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,12 +54,61 @@ Route::middleware('auth:api')->group(function () {
 
     // Seller routes
     Route::prefix('seller')->middleware('role:seller')->group(function () {
-        Route::get('profile', [SellerController::class, 'getSellerProfile']);
-        Route::put('profile', [SellerController::class, 'updateSellerProfile']);
+    Route::get('profile', [SellerController::class, 'getSellerProfile']);
+    Route::put('profile', [SellerController::class, 'updateSellerProfile']);
         Route::get('products', [SellerController::class, 'getProducts']);
         Route::post('products', [SellerController::class, 'createProduct']);
         Route::put('products/{id}', [SellerController::class, 'updateProduct']);
         Route::delete('products/{id}', [SellerController::class, 'deleteProduct']);
+
+        // Seller related resources (CRUD) - explicit route groups
+        Route::group(['prefix' => 'books'], function () {
+            Route::get('/', [BookController::class, 'index']);
+            Route::post('store', [BookController::class, 'store']);
+            Route::post('update/{id}', [BookController::class, 'update']);
+            Route::get('{id}', [BookController::class, 'show']);
+            Route::delete('{id}', [BookController::class, 'destroy']);
+        });
+
+        Route::group(['prefix' => 'services'], function () {
+            Route::get('/', [ServiceController::class, 'index']);
+            Route::post('store', [ServiceController::class, 'store']);
+            Route::post('update/{id}', [ServiceController::class, 'update']);
+            Route::get('{id}', [ServiceController::class, 'show']);
+            Route::delete('{id}', [ServiceController::class, 'destroy']);
+        });
+
+        Route::group(['prefix' => 'insurance-offerings'], function () {
+            Route::get('/', [InsuranceOfferingController::class, 'index']);
+            Route::post('store', [InsuranceOfferingController::class, 'store']);
+            Route::post('update/{id}', [InsuranceOfferingController::class, 'update']);
+            Route::get('{id}', [InsuranceOfferingController::class, 'show']);
+            Route::delete('{id}', [InsuranceOfferingController::class, 'destroy']);
+        });
+
+        Route::group(['prefix' => 'menus'], function () {
+            Route::get('/', [SellerMenuController::class, 'index']);
+            Route::post('store', [SellerMenuController::class, 'store']);
+            Route::post('update/{id}', [SellerMenuController::class, 'update']);
+            Route::get('{id}', [SellerMenuController::class, 'show']);
+            Route::delete('{id}', [SellerMenuController::class, 'destroy']);
+        });
+
+        Route::group(['prefix' => 'vehicles'], function () {
+            Route::get('/', [VehicleController::class, 'index']);
+            Route::post('store', [VehicleController::class, 'store']);
+            Route::post('update/{id}', [VehicleController::class, 'update']);
+            Route::get('{id}', [VehicleController::class, 'show']);
+            Route::delete('{id}', [VehicleController::class, 'destroy']);
+        });
+
+        Route::group(['prefix' => 'properties'], function () {
+            Route::get('/', [PropertyController::class, 'index']);
+            Route::post('store', [PropertyController::class, 'store']);
+            Route::post('update/{id}', [PropertyController::class, 'update']);
+            Route::get('{id}', [PropertyController::class, 'show']);
+            Route::delete('{id}', [PropertyController::class, 'destroy']);
+        });
     });
 
     // Admin routes
