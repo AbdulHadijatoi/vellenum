@@ -8,6 +8,10 @@ class PropertyImage extends Model
 {
     protected $guarded = [];
     
+    protected $with = [
+        'image'
+    ];
+
     public $timestamps = false;
 
     public function property()
@@ -17,7 +21,10 @@ class PropertyImage extends Model
 
     public function image()
     {
-        return $this->belongsTo(File::class);
+        return $this->belongsTo(File::class,'file_id');
     }
+
+    // add image attribute from file
+
 
 }

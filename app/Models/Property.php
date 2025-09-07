@@ -13,5 +13,8 @@ class Property extends Model
         return $this->belongsTo(Seller::class);
     }
 
+    public function propertyImages(){
+        return $this->hasMany(PropertyImage::class);
+    }
     
 }

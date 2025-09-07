@@ -13,6 +13,7 @@ class RolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
+        // Role::truncate();
         // Create roles
         $adminRole = Role::create(['name' => 'admin']);
         $sellerRole = Role::create(['name' => 'seller']);

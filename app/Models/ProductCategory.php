@@ -14,11 +14,11 @@ class ProductCategory extends Model
         'slug',
         'description',
         'image',
-        'is_active',
+        'status',
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
+        'status' => 'boolean',
     ];
 
     public function products()

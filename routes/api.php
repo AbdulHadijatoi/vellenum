@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FileController;
@@ -41,6 +40,7 @@ Route::prefix('home')->group(function () {
     Route::get('seller-categories', [HomeController::class, 'getSellerCategories']);
     Route::get('product-categories', [HomeController::class, 'getProductCategories']);
     Route::get('products/category/{categoryId}', [HomeController::class, 'getProductsBySellerCategory']);
+    Route::get('products', [HomeController::class, 'getAllProducts']);
     Route::get('products/search', [HomeController::class, 'searchProducts']);
     Route::get('products/{id}', [HomeController::class, 'getProductDetails']);
 });
@@ -56,12 +56,14 @@ Route::middleware('auth:api')->group(function () {
     Route::prefix('seller')->middleware('role:seller')->group(function () {
     Route::get('profile', [SellerController::class, 'getSellerProfile']);
     Route::put('profile', [SellerController::class, 'updateSellerProfile']);
-        Route::get('products', [SellerController::class, 'getProducts']);
-        Route::post('products', [SellerController::class, 'createProduct']);
-        Route::put('products/{id}', [SellerController::class, 'updateProduct']);
-        Route::delete('products/{id}', [SellerController::class, 'deleteProduct']);
+        
+        Route::group(['prefix' => 'products'], function () {
+            Route::get('/', [SellerController::class, 'getProducts']);
+            Route::post('store', [SellerController::class, 'createProduct']);
+            Route::post('update/{id}', [SellerController::class, 'updateProduct']);
+            Route::delete('{id}', [SellerController::class, 'deleteProduct']);
+        });
 
-        // Seller related resources (CRUD) - explicit route groups
         Route::group(['prefix' => 'books'], function () {
             Route::get('/', [BookController::class, 'index']);
             Route::post('store', [BookController::class, 'store']);

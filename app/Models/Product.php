@@ -19,13 +19,13 @@ class Product extends Model
         // 'image_file_id',
         // 'type',
         // 'attributes',
-        // 'is_active',
+        // 'status',
         // 'is_featured',
     ];
 
     // protected $casts = [
     //     'attributes' => 'array',
-    //     'is_active' => 'boolean',
+    //     'status' => 'boolean',
     //     'is_featured' => 'boolean',
     //     'price' => 'decimal:2',
     // ];

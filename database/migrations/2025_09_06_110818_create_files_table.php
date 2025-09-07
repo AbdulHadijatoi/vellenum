@@ -25,7 +25,7 @@ return new class extends Migration
             $table->json('metadata')->nullable(); // Additional file metadata
             $table->foreignId('uploaded_by')->nullable()->constrained('users')->onDelete('set null');
             $table->boolean('is_public')->default(true);
-            $table->boolean('is_active')->default(true);
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

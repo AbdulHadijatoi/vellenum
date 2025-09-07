@@ -23,16 +23,19 @@ class File extends Model
         'metadata',
         'uploaded_by',
         'is_public',
-        'is_active',
+        'status',
     ];
 
     protected $casts = [
         'metadata' => 'array',
         'is_public' => 'boolean',
-        'is_active' => 'boolean',
+        'status' => 'boolean',
         'size' => 'integer',
     ];
 
+    protected $appends = ['image_url'];
+    protected $visible = ['image_url'];
+    
     public function uploader()
     {
         return $this->belongsTo(User::class, 'uploaded_by');
@@ -44,7 +47,7 @@ class File extends Model
             ->orWhere('business_registration_certificate', $this->id)
             ->orWhere('food_safety_certifications', $this->id)
             ->orWhere('professional_license', $this->id)
-            ->orWhere('legal_certifications', $this->id)
+            ->orWhere('legal_certifications', $this->id);
     }
 
     public function products()
@@ -57,13 +60,17 @@ class File extends Model
         return $this->hasMany(ProductImage::class);
     }
 
-    /**
-     * Get the full URL for the file
-     */
-    public function getUrlAttribute()
+    public function getImageUrlAttribute()
     {
-        return Storage::disk($this->disk)->url($this->path);
+        // If you want to check for public visibility
+        if ($this->is_public) {
+            return Storage::disk($this->disk)->url($this->path);
+        }
+
+        // Optionally return null or signed URL if private
+        return null;
     }
+
 
     /**
      * Get the full path for the file
@@ -119,7 +126,7 @@ class File extends Model
      */
     public function scopeActive($query)
     {
-        return $query->where('is_active', true);
+        return $query->where('status', true);
     }
 
     /**

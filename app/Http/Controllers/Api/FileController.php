@@ -127,7 +127,7 @@ class FileController extends Controller
             'category' => 'nullable|string|max:100',
             'description' => 'nullable|string|max:500',
             'is_public' => 'boolean',
-            'is_active' => 'boolean',
+            'status' => 'boolean',
         ]);
 
         if ($validator->fails()) {
@@ -138,7 +138,7 @@ class FileController extends Controller
             ], 422);
         }
 
-        $file->update($request->only(['category', 'description', 'is_public', 'is_active']));
+        $file->update($request->only(['category', 'description', 'is_public', 'status']));
 
         return response()->json([
             'success' => true,

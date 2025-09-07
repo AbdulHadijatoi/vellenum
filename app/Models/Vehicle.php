@@ -13,5 +13,8 @@ class Vehicle extends Model
         return $this->belongsTo(Seller::class);
     }
 
-    
+    public function vehiclePhotos()
+    {
+        return $this->hasMany(VehiclePhoto::class);
+    }
 }

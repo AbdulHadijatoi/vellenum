@@ -45,7 +45,7 @@ return new class extends Migration
                 'otp',
                 'otp_expires_at',
                 'is_verified',
-                'is_active',
+                'status',
                 'profile_image'
             ]);
         });

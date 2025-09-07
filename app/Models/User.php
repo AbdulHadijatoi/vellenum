@@ -35,7 +35,7 @@ class User extends Authenticatable
         'otp',
         'otp_expires_at',
         'is_verified',
-        'is_active',
+        'status',
         'profile_image',
     ];
 
@@ -61,7 +61,7 @@ class User extends Authenticatable
             'password' => 'hashed',
             'otp_expires_at' => 'datetime',
             'is_verified' => 'boolean',
-            'is_active' => 'boolean',
+            'status' => 'boolean',
         ];
     }
 

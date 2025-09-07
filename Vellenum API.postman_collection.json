@@ -1,0 +1,2696 @@
+{
+	"info": {
+		"_postman_id": "175b0e62-803a-42d1-afa7-e476cd7701fb",
+		"name": "Vellenum API",
+		"description": "Postman v2.1 collection for Vellenum API. Set {{base_url}} and {{token}} environment variables before use.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33828978"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register - Restaurant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": " Joe's Diner",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "restaurant7@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": " password",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": " password",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": " +15550123456",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": " 10 Food St",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": " USA",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": " TX",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": " Austin",
+									"type": "text"
+								},
+								{
+									"key": "zip_code",
+									"value": " 73301",
+									"type": "text"
+								},
+								{
+									"key": "license_number",
+									"value": " ABC123456",
+									"type": "text"
+								},
+								{
+									"key": "operating_hours",
+									"value": " {\"monday\":{\"start\":\"09:00\",\"end\":\"21:00\"}}",
+									"type": "text"
+								},
+								{
+									"key": "delivery_partner_name",
+									"value": " Speedy Delivery",
+									"type": "text"
+								},
+								{
+									"key": "delivery_partner_phone",
+									"value": " +15550987654",
+									"type": "text"
+								},
+								{
+									"key": "social_security_number",
+									"value": " 123-45-6789",
+									"type": "text"
+								},
+								{
+									"key": "seller_category_id",
+									"value": " 1",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "seller",
+									"type": "text"
+								},
+								{
+									"key": "business_registration_certificate",
+									"type": "file",
+									"src": "/Users/abdulhadi/Pictures/patterns/abstract-brush-stroke-pattern_23-2148702376.jpg"
+								},
+								{
+									"key": "food_safety_certifications",
+									"type": "file",
+									"src": "/Users/abdulhadi/Pictures/patterns/abstract-hand-drawn-pattern-collection_23-2148595458.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Restaurant-specific registration (seller_category_id=1). Required user fields + restaurant fields. File fields represented as placeholder IDs or filenames."
+					},
+					"response": []
+				},
+				{
+					"name": "Register - Apparel",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Apparel Shop",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "apparel@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+15551230000",
+									"type": "text"
+								},
+								{
+									"key": "business_name",
+									"value": "Trendy Apparel",
+									"type": "text"
+								},
+								{
+									"key": "business_email",
+									"value": "sales@trendy.com",
+									"type": "text"
+								},
+								{
+									"key": "business_phone",
+									"value": "+15551230000",
+									"type": "text"
+								},
+								{
+									"key": "business_address",
+									"value": "45 Fashion Ave",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "USA",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "NY",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "New York",
+									"type": "text"
+								},
+								{
+									"key": "zip_code",
+									"value": "10001",
+									"type": "text"
+								},
+								{
+									"key": "seller_category_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "seller",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register - Fleet",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Fleet Co",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "fleet@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+15551231111",
+									"type": "text"
+								},
+								{
+									"key": "business_name",
+									"value": "Fleet Co",
+									"type": "text"
+								},
+								{
+									"key": "business_email",
+									"value": "info@fleetco.com",
+									"type": "text"
+								},
+								{
+									"key": "business_phone",
+									"value": "+15551231111",
+									"type": "text"
+								},
+								{
+									"key": "business_address",
+									"value": "1 Depot Rd",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "USA",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "FL",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Miami",
+									"type": "text"
+								},
+								{
+									"key": "zip_code",
+									"value": "33101",
+									"type": "text"
+								},
+								{
+									"key": "seller_category_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "seller",
+									"type": "text"
+								},
+								{
+									"key": "vehicle_information",
+									"value": "{\"number_of_vehicles\":2,\"vehicles\":[{\"vehicle_name\":\"Van A\",\"make\":\"Ford\",\"model\":\"Transit\",\"year\":2018,\"mileage\":50000,\"rate_start_time\":\"08:00\",\"rate_amount\":25}]}",
+									"type": "text"
+								},
+								{
+									"key": "government_issued_id_file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register - Automobile Sales Representative",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Auto Rep",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "autosales@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+15551232222",
+									"type": "text"
+								},
+								{
+									"key": "business_name",
+									"value": "Auto Sales",
+									"type": "text"
+								},
+								{
+									"key": "business_email",
+									"value": "contact@autosales.com",
+									"type": "text"
+								},
+								{
+									"key": "business_phone",
+									"value": "+15551232222",
+									"type": "text"
+								},
+								{
+									"key": "business_address",
+									"value": "200 Car Ln",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "USA",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "MI",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Detroit",
+									"type": "text"
+								},
+								{
+									"key": "zip_code",
+									"value": "48201",
+									"type": "text"
+								},
+								{
+									"key": "seller_category_id",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "seller",
+									"type": "text"
+								},
+								{
+									"key": "license_number",
+									"type": "text"
+								},
+								{
+									"key": "years_of_experience",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "specialization",
+									"value": "[\"used cars\",\"luxury vehicles\"]",
+									"type": "text"
+								},
+								{
+									"key": "vehicle_information",
+									"value": "{\"number_of_vehicles\":1,\"vehicles\":[{\"vehicle_name\":\"Car A\",\"make\":\"Toyota\",\"model\":\"Camry\",\"year\":2020}]}",
+									"type": "text"
+								},
+								{
+									"key": "government_issued_id_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "business_registration_certificate_file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register - Car Rental Marketplace",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Rent A Car",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rentals@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+15551233333",
+									"type": "text"
+								},
+								{
+									"key": "business_name",
+									"value": "Rentals Inc",
+									"type": "text"
+								},
+								{
+									"key": "business_email",
+									"value": "hello@rentals.com",
+									"type": "text"
+								},
+								{
+									"key": "business_phone",
+									"value": "+15551233333",
+									"type": "text"
+								},
+								{
+									"key": "business_address",
+									"value": "300 Rental Rd",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "USA",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "CA",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Los Angeles",
+									"type": "text"
+								},
+								{
+									"key": "zip_code",
+									"value": "90001",
+									"type": "text"
+								},
+								{
+									"key": "seller_category_id",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "seller",
+									"type": "text"
+								},
+								{
+									"key": "business_registration_certificate_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "government_issued_id_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "proof_of_business_registration_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "vehicle_information",
+									"value": "{\"number_of_vehicles\":3}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register - Car Wash",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Sparkle Wash",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "carwash@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+15551234444",
+									"type": "text"
+								},
+								{
+									"key": "business_name",
+									"value": "Sparkle Wash",
+									"type": "text"
+								},
+								{
+									"key": "business_email",
+									"value": "info@sparklewash.com",
+									"type": "text"
+								},
+								{
+									"key": "business_phone",
+									"value": "+15551234444",
+									"type": "text"
+								},
+								{
+									"key": "business_address",
+									"value": "77 Clean St",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "USA",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "GA",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Atlanta",
+									"type": "text"
+								},
+								{
+									"key": "zip_code",
+									"value": "30301",
+									"type": "text"
+								},
+								{
+									"key": "seller_category_id",
+									"value": "6",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "seller",
+									"type": "text"
+								},
+								{
+									"key": "government_issued_id_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "business_registration_certificate_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "operating_hours",
+									"value": "{\"monday\":{\"start\":\"08:00\",\"end\":\"18:00\"}}",
+									"type": "text"
+								},
+								{
+									"key": "service_packages",
+									"value": "[{\"name\":\"Deluxe\",\"car_type\":\"Sedan\",\"service_type\":\"Full Wash\",\"price\":29.99}]",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register - Insurance Marketplace",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "InsureMe",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "insurance@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+15551235555",
+									"type": "text"
+								},
+								{
+									"key": "business_name",
+									"value": "InsureMe",
+									"type": "text"
+								},
+								{
+									"key": "business_email",
+									"value": "support@insureme.com",
+									"type": "text"
+								},
+								{
+									"key": "business_phone",
+									"value": "+15551235555",
+									"type": "text"
+								},
+								{
+									"key": "business_address",
+									"value": "9 Shield Ave",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "USA",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "IL",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Chicago",
+									"type": "text"
+								},
+								{
+									"key": "zip_code",
+									"value": "60601",
+									"type": "text"
+								},
+								{
+									"key": "seller_category_id",
+									"value": "7",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "seller",
+									"type": "text"
+								},
+								{
+									"key": "government_issued_id_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "insurance_license_number",
+									"value": "LIC-1001",
+									"type": "text"
+								},
+								{
+									"key": "license_expiry_date",
+									"value": "2026-12-31",
+									"type": "text"
+								},
+								{
+									"key": "insurance_offerings",
+									"value": "[{\"name\":\"Basic Plan\",\"type\":\"Liability\",\"coverage_options\":[\"Basic\"],\"rate_basic\":49.99,\"description\":\"Basic coverage\"}]",
+									"type": "text"
+								},
+								{
+									"key": "business_registration_certificate_file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register - Digital Bookstore",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Book World",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "books@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+15551236666",
+									"type": "text"
+								},
+								{
+									"key": "business_name",
+									"value": "Book World",
+									"type": "text"
+								},
+								{
+									"key": "business_email",
+									"value": "store@bookworld.com",
+									"type": "text"
+								},
+								{
+									"key": "business_phone",
+									"value": "+15551236666",
+									"type": "text"
+								},
+								{
+									"key": "business_address",
+									"value": "12 Library Ln",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "USA",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "MA",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Boston",
+									"type": "text"
+								},
+								{
+									"key": "zip_code",
+									"value": "02108",
+									"type": "text"
+								},
+								{
+									"key": "seller_category_id",
+									"value": "8",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "seller",
+									"type": "text"
+								},
+								{
+									"key": "government_issued_id_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "business_registration_certificate_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "books_details",
+									"value": "[{\"book_title\":\"The Great Book\",\"book_author\":\"A. Author\",\"book_price\":9.99,\"book_genre\":\"Fiction\",\"book_format\":\"epub\"}]",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register - Real Estate Broker",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Realty Pros",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "realty@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+15551237777",
+									"type": "text"
+								},
+								{
+									"key": "business_name",
+									"value": "Realty Pros",
+									"type": "text"
+								},
+								{
+									"key": "business_email",
+									"value": "contact@realtypros.com",
+									"type": "text"
+								},
+								{
+									"key": "business_phone",
+									"value": "+15551237777",
+									"type": "text"
+								},
+								{
+									"key": "business_address",
+									"value": "500 Estate Rd",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "USA",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "CA",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "San Diego",
+									"type": "text"
+								},
+								{
+									"key": "zip_code",
+									"value": "92101",
+									"type": "text"
+								},
+								{
+									"key": "seller_category_id",
+									"value": "9",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "seller",
+									"type": "text"
+								},
+								{
+									"key": "government_issued_id_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "business_registration_certificate_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "property_details",
+									"value": "[{\"property_title\":\"Cozy Cottage\",\"property_type\":\"House\",\"property_price\":250000,\"property_address\":\"1 Ocean View\",\"bedrooms\":3}]",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register - Black Clothing Lines & Accessories",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Black Fashion",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "blackfashion@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+15551238888",
+									"type": "text"
+								},
+								{
+									"key": "business_name",
+									"value": "Black Fashion",
+									"type": "text"
+								},
+								{
+									"key": "business_email",
+									"value": "hello@blackfashion.com",
+									"type": "text"
+								},
+								{
+									"key": "business_phone",
+									"value": "+15551238888",
+									"type": "text"
+								},
+								{
+									"key": "business_address",
+									"value": "88 Style Blvd",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "USA",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "NC",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Charlotte",
+									"type": "text"
+								},
+								{
+									"key": "zip_code",
+									"value": "28202",
+									"type": "text"
+								},
+								{
+									"key": "seller_category_id",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "seller",
+									"type": "text"
+								},
+								{
+									"key": "government_issued_id_file",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register - LegalShield Marketplace",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Law Protect",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "legal@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+15551239999",
+									"type": "text"
+								},
+								{
+									"key": "business_name",
+									"value": "Law Protect",
+									"type": "text"
+								},
+								{
+									"key": "business_email",
+									"value": "support@lawprotect.com",
+									"type": "text"
+								},
+								{
+									"key": "business_phone",
+									"value": "+15551239999",
+									"type": "text"
+								},
+								{
+									"key": "business_address",
+									"value": "101 Justice Dr",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "USA",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "DC",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Washington",
+									"type": "text"
+								},
+								{
+									"key": "zip_code",
+									"value": "20001",
+									"type": "text"
+								},
+								{
+									"key": "seller_category_id",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "seller",
+									"type": "text"
+								},
+								{
+									"key": "professional_license",
+									"value": "file_310",
+									"type": "text"
+								},
+								{
+									"key": "years_of_experience",
+									"value": "8",
+									"type": "text"
+								},
+								{
+									"key": "service_name",
+									"value": "Personal Injury Consultation",
+									"type": "text"
+								},
+								{
+									"key": "pricing_model",
+									"value": "hourly",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "200",
+									"type": "text"
+								},
+								{
+									"key": "government_issued_id_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "business_registration_certificate_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "professional_license_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "operating_hours",
+									"value": "{\"monday\":{\"start\":\"08:00\",\"end\":\"18:00\"}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register - Retail Store",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Downtown Barber",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "barber@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+15551230001",
+									"type": "text"
+								},
+								{
+									"key": "business_name",
+									"value": "Downtown Barber",
+									"type": "text"
+								},
+								{
+									"key": "business_email",
+									"value": "bookings@downtownbarber.com",
+									"type": "text"
+								},
+								{
+									"key": "business_phone",
+									"value": "+15551230001",
+									"type": "text"
+								},
+								{
+									"key": "business_address",
+									"value": "22 Groom St",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "USA",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "OR",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Portland",
+									"type": "text"
+								},
+								{
+									"key": "zip_code",
+									"value": "97035",
+									"type": "text"
+								},
+								{
+									"key": "seller_category_id",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "seller",
+									"type": "text"
+								},
+								{
+									"key": "government_issued_id_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "product_details",
+									"value": "[{\"service_name\":\"Haircut\",\"service_category\":\"Hair\",\"service_description\":\"Classic haircut\",\"price\":25,\"duration\":30}]",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register - Barber Beauty Salon",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Downtown Barber",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "barber@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+15551230001",
+									"type": "text"
+								},
+								{
+									"key": "business_name",
+									"value": "Downtown Barber",
+									"type": "text"
+								},
+								{
+									"key": "business_email",
+									"value": "bookings@downtownbarber.com",
+									"type": "text"
+								},
+								{
+									"key": "business_phone",
+									"value": "+15551230001",
+									"type": "text"
+								},
+								{
+									"key": "business_address",
+									"value": "22 Groom St",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "USA",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "OR",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Portland",
+									"type": "text"
+								},
+								{
+									"key": "zip_code",
+									"value": "97035",
+									"type": "text"
+								},
+								{
+									"key": "seller_category_id",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "government_issued_id_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "role",
+									"value": "seller",
+									"type": "text"
+								},
+								{
+									"key": "operating_hours",
+									"value": "{\"monday\":{\"start\":\"10:00\",\"end\":\"19:00\"}}",
+									"type": "text"
+								},
+								{
+									"key": "service_packages",
+									"value": "[{\"service_name\":\"Haircut\",\"service_category\":\"Hair\",\"service_description\":\"Classic haircut\",\"price\":25,\"duration\":30}]",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register - Personal Injury Attorney",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Injury Lawyers",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "attorney@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+15551230002",
+									"type": "text"
+								},
+								{
+									"key": "business_name",
+									"value": "Injury Lawyers",
+									"type": "text"
+								},
+								{
+									"key": "business_email",
+									"value": "info@injurylaw.com",
+									"type": "text"
+								},
+								{
+									"key": "business_phone",
+									"value": "+15551230002",
+									"type": "text"
+								},
+								{
+									"key": "business_address",
+									"value": "400 Legal Ave",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "USA",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "NY",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Albany",
+									"type": "text"
+								},
+								{
+									"key": "zip_code",
+									"value": "12207",
+									"type": "text"
+								},
+								{
+									"key": "seller_category_id",
+									"value": "13",
+									"type": "text"
+								},
+								{
+									"key": "government_issued_id_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "role",
+									"value": "seller",
+									"type": "text"
+								},
+								{
+									"key": "bar_association_number",
+									"value": "BAR-9001",
+									"type": "text"
+								},
+								{
+									"key": "years_of_experience",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "legal_certifications",
+									"value": "file_401",
+									"type": "text"
+								},
+								{
+									"key": "insurance_offerings",
+									"value": "[{\"name\":\"Basic Plan\",\"type\":\"Liability\",\"coverage_options\":[\"Basic\"],\"rate_basic\":49.99,\"description\":\"Basic coverage\"}]",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register - Mississippi Catfish Company",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Catfish Co",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "catfish@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password123",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+15551230003",
+									"type": "text"
+								},
+								{
+									"key": "business_name",
+									"value": "Mississippi Catfish Co",
+									"type": "text"
+								},
+								{
+									"key": "business_email",
+									"value": "sales@catfishco.com",
+									"type": "text"
+								},
+								{
+									"key": "business_phone",
+									"value": "+15551230003",
+									"type": "text"
+								},
+								{
+									"key": "business_address",
+									"value": "12 River Rd",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "USA",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "MS",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Jackson",
+									"type": "text"
+								},
+								{
+									"key": "zip_code",
+									"value": "39201",
+									"type": "text"
+								},
+								{
+									"key": "seller_category_id",
+									"value": "14",
+									"type": "text"
+								},
+								{
+									"key": "government_issued_id_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "role",
+									"value": "seller",
+									"type": "text"
+								},
+								{
+									"key": "what_you_sell",
+									"value": "[\"Fresh Catfish\",\"Packaged\"]",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"apparel@example.com\",\n  \"password\": \"password123\"\n}\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Login and receive access token. Token goes into Authorization header as: Bearer {{token}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Send OTP",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"john.seller@example.com\"\n}\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/send-otp",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"send-otp"
+							]
+						},
+						"description": "Request an OTP for verification or password reset (dev returns OTP in response)."
+					},
+					"response": []
+				},
+				{
+					"name": "Verify OTP",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"john.seller@example.com\",\n  \"otp\": \"123456\"\n}\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/verify-otp",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"verify-otp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"restaurant7@example.com\"\n}\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/forgot-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"restaurant7@example.com\",\n  \"otp\": \"230457\",\n  \"password\": \"password\",\n  \"password_confirmation\": \"password\"\n}\n"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/reset-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout (protected)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						},
+						"description": "Revoke current user's token (requires Authorization header)."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Public - Home / Products",
+			"item": [
+				{
+					"name": "List Products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/home/products?search=&page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"home",
+								"products"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": ""
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Product",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/home/products?search=&page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"home",
+								"products"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": ""
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/home/products/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"home",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Seller Resources (protected)",
+			"item": [
+				{
+					"name": "books",
+					"item": []
+				},
+				{
+					"name": "Books - Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "The Great Book",
+									"type": "text"
+								},
+								{
+									"key": "author",
+									"value": "A. Author",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "9.99",
+									"type": "text"
+								},
+								{
+									"key": "seller_id",
+									"value": "8",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "genre",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "format",
+									"value": "pdf",
+									"type": "text"
+								},
+								{
+									"key": "cover",
+									"type": "file",
+									"src": "/Users/abdulhadi/Pictures/patterns/abstract-hand-drawn-pattern-collection_23-2148595458.jpg"
+								},
+								{
+									"key": "book_file",
+									"type": "file",
+									"src": "/Users/abdulhadi/Pictures/patterns/abstract-organic-shapes-seamless-pattern-vector-hand-drawn-curved-shape-with-drops-spots_775359-375.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/seller/books/store",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"seller",
+								"books",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Books - Update",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "The Great Book",
+									"type": "text"
+								},
+								{
+									"key": "author",
+									"value": "A. Author",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "9.99",
+									"type": "text"
+								},
+								{
+									"key": "seller_id",
+									"value": "8",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "genre",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "format",
+									"value": "pdf",
+									"type": "text"
+								},
+								{
+									"key": "book_file",
+									"type": "file",
+									"src": "/Users/abdulhadi/Pictures/patterns/abstract-hand-drawn-pattern-collection_23-2148595458.jpg"
+								},
+								{
+									"key": "cover",
+									"type": "file",
+									"src": "/Users/abdulhadi/Pictures/patterns/abstract-hand-drawn-pattern-collection_23-2148595458.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/seller/books/update/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"seller",
+								"books",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Properties - Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "property_title",
+									"value": "Cozy Cottage",
+									"type": "text"
+								},
+								{
+									"key": "property_type",
+									"value": "House",
+									"type": "text"
+								},
+								{
+									"key": "property_price",
+									"value": "250000",
+									"type": "text"
+								},
+								{
+									"key": "property_address",
+									"value": "1 Ocean View",
+									"type": "text"
+								},
+								{
+									"key": "primary_image",
+									"value": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/seller/properties/store",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"seller",
+								"properties",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Properties - Update",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "property_price",
+									"value": "245000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/seller/properties/update/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"seller",
+								"properties",
+								"update",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Properties - Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/seller/properties/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"seller",
+								"properties",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Files (protected)",
+			"item": [
+				{
+					"name": "Upload File (single)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"value": "",
+									"type": "file"
+								},
+								{
+									"key": "category",
+									"value": "product_image",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Primary shoe photo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/files/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"files",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bulk Upload Files",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"value": "",
+									"type": "file"
+								},
+								{
+									"key": "files",
+									"value": "",
+									"type": "file"
+								},
+								{
+									"key": "category",
+									"value": "gallery",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/files/bulk-upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"files",
+								"bulk-upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Files",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/files?category=product_image&public_only=true&page=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"files"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "product_image"
+								},
+								{
+									"key": "public_only",
+									"value": "true"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show File",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/files/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"files",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download File",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/files/1/download",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"files",
+								"1",
+								"download"
+							]
+						},
+						"description": "Downloads file binary from storage if present."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "get-sellers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/get-sellers",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"get-sellers"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000"
+		},
+		{
+			"key": "token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIwMTk5MjJjYy0xZTRjLTczNDItYjZhOC0zMmRmNzU2OTVkNWEiLCJqdGkiOiJkMDY4NjUyZWEyZDg4Y2M1YjM4MGZjNDg5ZDhlYzM5NGQ1YzEyNjk3ZWNkZDBmMzE1MTAxNzMyOTBjZTNkNmYzOGM3ODlkMWU4M2M1YTIyOCIsImlhdCI6MTc1NzIyNTQzNy42NTUxMTQsIm5iZiI6MTc1NzIyNTQzNy42NTUxMTcsImV4cCI6MTc4ODc2MTQzNy42NDQ4OTEsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.go3jdNZciDT5p-Rt4gY7BzhfcwuwGOiEyG8R7d0s2DYgLTPvK-YQFFLfRbXPI4P6S15_8-TONbs96ifdInmRSHB0tfO2wtOyiDvjaEZZ0l65CVV5wzO75Ehe_yEHojoBiEhKAD61gYZef-FwKfVf2RGOfCEnyuw-2ghpcRTn5QAZXKU4vtoGpEJt8s3Q8xJ8jDFGJ9fMjKXlsv97z4rPTGZ5O4W9dn31WZ-ABY9yOAwKE_QmL5EQVd6rL_Q22dXIryDJ43xtGC3T5sfgDw9qcgz5IKxnzsD9wMgiepyacAzCMG-9fQ-Lzug_gqVwWlwEhWAdgWYI-m_JlfHbYYZN5KvImpg5vGNpBkFpg88kP46Qx92QC6-Os7XMrmWKVK4k8CCbbUfQ2gGXeYTDRKXs5zhE1U5iKkDlOIkSlFGL30dJChMWEt2zKjH-YhnfuWVwwtH7p39fErRy2bNrv3bal8nq9B64ezXNwvWq1SpVCM7VhzyLB4pwb2gkiVR28qx2VCW_9PYMDbjB8QsHmPitC6wjPEzfY7OF-Yb_Ku4yx2oNh7-9TFf18lCaJU8sifqvCxsIduQ0MAMH2VgXrZF-FCLTDvm2W7ytVeaG1Ja6RrljBNW_00nMVbkUoLd4CHdplkPWnZCthwdf7Wt1qZMvveF1wPChFJ1Unllirll7d80"
+		}
+	]
+}

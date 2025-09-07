@@ -3,10 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Book;
+use App\Models\InsuranceOffering;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\Property;
 use App\Models\Seller;
 use App\Models\SellerCategory;
+use App\Models\SellerMenu;
+use App\Models\Service;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,7 +20,7 @@ class HomeController extends Controller
     public function getFeaturedProducts()
     {
         // Get 4 products from each seller category
-        $sellerCategories = SellerCategory::where('is_active', true)->get();
+        $sellerCategories = SellerCategory::where('status', true)->get();
         $featuredProducts = [];
 
         foreach ($sellerCategories as $category) {
@@ -22,7 +28,7 @@ class HomeController extends Controller
                 $query->where('seller_category_id', $category->id)
                       ->where('is_approved', true);
             })
-            ->where('is_active', true)
+            ->where('status', true)
             ->where('is_featured', true)
             ->with(['seller.user', 'productCategory', 'imageFile', 'images.file'])
             ->limit(4)
@@ -57,7 +63,7 @@ class HomeController extends Controller
             $query->where('seller_category_id', $categoryId)
                   ->where('is_approved', true);
         })
-        ->where('is_active', true)
+        ->where('status', true)
         ->with(['seller.user', 'productCategory', 'imageFile', 'images.file']);
 
         // Apply filters
@@ -101,7 +107,7 @@ class HomeController extends Controller
 
     public function getProductCategories()
     {
-        $categories = ProductCategory::where('is_active', true)->get();
+        $categories = ProductCategory::where('status', true)->get();
 
         return response()->json([
             'success' => true,
@@ -111,7 +117,7 @@ class HomeController extends Controller
 
     public function getSellerCategories()
     {
-        $categories = SellerCategory::where('is_active', true)->get();
+        $categories = SellerCategory::where('status', true)->get();
 
         return response()->json([
             'success' => true,
@@ -119,10 +125,49 @@ class HomeController extends Controller
         ]);
     }
 
+    public function getAllProducts()
+    {
+        $products = Product::with(['seller.user', 'seller.sellerCategory', 'productCategory', 'imageFile', 'images.file'])
+            ->where('status', true)
+            ->get();
+
+        $books = Book::with(['seller.user', 'seller.sellerCategory', 'coverFile', 'bookFile'])
+            ->get();
+
+        $insuranceOffering = InsuranceOffering::with('seller.user')
+            ->get();
+
+        $properties = Property::with(['seller.user', 'seller.sellerCategory','propertyImages'])
+            ->get();
+
+        $sellerMenu = SellerMenu::with(['seller.user'])
+            ->get();
+
+        $services = Service::with(['seller.user'])
+            ->get();
+        
+        $vehicles = Vehicle::with(['seller.user', 'vehiclePhotos'])
+            ->get();
+        
+        
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'products' => $products,
+                'books' => $books,
+                'insurance_offerings' => $insuranceOffering,
+                'properties' => $properties,
+                'seller_menus' => $sellerMenu,
+                'services' => $services,
+                'vehicles' => $vehicles
+            ]
+        ]);
+    }
+
     public function getProductDetails($id)
     {
         $product = Product::with(['seller.user', 'seller.sellerCategory', 'productCategory', 'imageFile', 'images.file'])
-            ->where('is_active', true)
+            ->where('status', true)
             ->find($id);
 
         if (!$product) {
@@ -135,7 +180,7 @@ class HomeController extends Controller
         // Get related products from the same seller
         $relatedProducts = Product::where('seller_id', $product->seller_id)
             ->where('id', '!=', $product->id)
-            ->where('is_active', true)
+            ->where('status', true)
             ->limit(4)
             ->get();
 
@@ -150,7 +195,7 @@ class HomeController extends Controller
 
     public function searchProducts(Request $request)
     {
-        $query = Product::where('is_active', true)
+        $query = Product::where('status', true)
             ->with(['seller.user', 'seller.sellerCategory', 'productCategory', 'imageFile', 'images.file']);
 
         if ($request->has('search')) {

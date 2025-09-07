@@ -91,8 +91,7 @@ class BookController extends Controller
 
     public function update(Request $request, $id)
     {
-        $seller = $request->user()->seller;
-        $book = Book::where('id', $id)->where('seller_id', $seller->id)->firstOrFail();
+        $book = Book::where('id', $id)->firstOrFail();
 
         $validator = Validator::make($request->all(), [
             'title' => 'sometimes|string|max:255',
@@ -154,8 +153,7 @@ class BookController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        $seller = $request->user()->seller;
-        $book = Book::where('id', $id)->where('seller_id', $seller->id)->firstOrFail();
+        $book = Book::where('id', $id)->firstOrFail();
 
         // delete associated files if present
         if ($book->coverFile) {

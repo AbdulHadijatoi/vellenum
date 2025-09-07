@@ -18,7 +18,7 @@ class SellerController extends Controller
 {
     public function getSellerCategories()
     {
-        $categories = SellerCategory::where('is_active', true)->get();
+        $categories = SellerCategory::where('status', true)->get();
         
         return response()->json([
             'success' => true,
@@ -258,7 +258,7 @@ class SellerController extends Controller
             'image_file_id' => 'nullable|exists:files,id',
             'images' => 'nullable|array',
             'images.*' => 'file|mimes:jpeg,png,jpg,gif|max:2048',
-            'is_active' => 'sometimes|boolean',
+            'status' => 'sometimes|boolean',
             'is_featured' => 'sometimes|boolean',
         ]);
 
@@ -272,7 +272,7 @@ class SellerController extends Controller
 
         $productData = $request->only([
             'title', 'description', 'price', 'quantity', 'product_category_id', 
-            'type', 'attributes', 'is_active', 'is_featured', 'image_file_id'
+            'type', 'attributes', 'status', 'is_featured', 'image_file_id'
         ]);
 
         $product->update($productData);

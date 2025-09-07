@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\DeliveryPartner;
 use App\Models\OTPCode;
 use App\Models\User;
 use App\Models\Seller;
@@ -16,6 +17,7 @@ use Carbon\Carbon;
 
 class AuthController extends Controller
 {
+
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -23,28 +25,26 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'phone' => 'nullable|string|max:20',
-            'business_name' => 'required|string|max:255',
-            'business_email' => 'required|string|email|max:255',
-            'business_phone' => 'required|string|max:20',
-            'business_address' => 'required|string',
-            'country' => 'required|string|max:100',
-            'state' => 'required|string|max:100',
-            'city' => 'required|string|max:100',
-            'zip_code' => 'required|string|max:20',
+            'address' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:100',
+            'state' => 'nullable|string|max:100',
+            'city' => 'nullable|string|max:100',
+            'zip_code' => 'nullable|string|max:20',
+
             'seller_category_id' => 'nullable|exists:seller_categories,id',
             'license_number' => 'nullable|string',
+            'operating_hours' => 'nullable|string',
+            'years_of_experience' => 'nullable|string',
+            'bar_association_number' => 'nullable|string',
+            'delivery_partner_name' => 'nullable|string',
+            'delivery_partner_phone' => 'nullable|string',
+            'social_security_number' => 'nullable|string',
             // File uploads (optional) - accept common document/image types up to 10MB
-            'proof_of_business_registration_file' => 'nullable|file|max:10240',
-            'food_safety_certifications_file' => 'nullable|file|max:10240',
-            'government_issued_id_file' => 'nullable|file|max:10240',
-            'business_registration_certificate_file' => 'nullable|file|max:10240',
-            'professional_license_file' => 'nullable|file|max:10240',
-            'legal_certifications_file' => 'nullable|file|max:10240',
-            'vehicle_registration_document_file' => 'nullable|file|max:10240',
-            'vehicle_insurance_document_file' => 'nullable|file|max:10240',
-            'book_cover_file' => 'nullable|file|max:10240',
-            'book_file' => 'nullable|file|max:10240',
-            'product_photo_file' => 'nullable|file|max:10240',
+            'government_issued_id' => 'nullable|file|max:10240',
+            'business_registration_certificate' => 'nullable|file|max:10240',
+            'food_safety_certifications' => 'nullable|file|max:10240',
+            'professional_license' => 'nullable|file|max:10240',
+            'legal_certifications' => 'nullable|file|max:10240',
             'role' => 'required|in:seller,buyer',
         ]);
 
@@ -62,10 +62,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone' => $request->phone,
-            'business_name' => $request->business_name,
-            'business_email' => $request->business_email,
-            'business_phone' => $request->business_phone,
-            'business_address' => $request->business_address,
+            'address' => $request->address,
             'country' => $request->country,
             'state' => $request->state,
             'city' => $request->city,
@@ -79,11 +76,10 @@ class AuthController extends Controller
         if ($request->role === 'seller') {
             // Only include columns that exist on the sellers table to avoid SQL errors
             $allowedSellerFields = [
-                'operating_hours',
-                'license_number',
-                'years_of_experience',
-                'bar_association_number',
-                'license_expiry_date',
+                "license_number",
+                "operating_hours",
+                "years_of_experience",
+                "bar_association_number",
             ];
 
             $sellerData = [
@@ -99,27 +95,28 @@ class AuthController extends Controller
 
             // Map only files that correspond to actual seller foreign keys in the migration
             $fileFieldMap = [
-                'government_issued_id_file' => 'government_issued_id',
-                'business_registration_certificate_file' => 'business_registration_certificate',
-                'food_safety_certifications_file' => 'food_safety_certifications',
-                'professional_license_file' => 'professional_license',
-                'legal_certifications_file' => 'legal_certifications',
+                'government_issued_id' => 'government_issued_id',
+                'business_registration_certificate' => 'business_registration_certificate',
+                'food_safety_certifications' => 'food_safety_certifications',
+                'professional_license' => 'professional_license',
+                'legal_certifications' => 'legal_certifications',
             ];
+
+            
 
             // All incoming file keys we validate for registration - we'll create File records for any uploaded
             $allFileKeys = [
-                'proof_of_business_registration_file',
-                'food_safety_certifications_file',
-                'government_issued_id_file',
-                'business_registration_certificate_file',
-                'professional_license_file',
-                'legal_certifications_file',
-                'vehicle_registration_document_file',
-                'vehicle_insurance_document_file',
-                'book_cover_file',
-                'book_file',
-                'product_photo_file',
-                'text_identification_file'
+                'food_safety_certifications',
+                'government_issued_id',
+                'business_registration_certificate',
+                'professional_license',
+                'legal_certifications',
+                // 'vehicle_registration_document_file',
+                // 'vehicle_insurance_document_file',
+                // 'book_cover_file',
+                // 'book_file',
+                // 'product_photo_file',
+                // 'text_identification_file'
             ];
 
             foreach ($allFileKeys as $reqKey) {
@@ -155,7 +152,26 @@ class AuthController extends Controller
                 }
             }
 
-            Seller::create($sellerData);
+            $seller = Seller::create($sellerData);
+
+            //restaurant
+            if($request->seller_category_id == 1){
+                $deliveryPartner = DeliveryPartner::where('name', $request->delivery_partner_name)
+                                    ->where('phone', $request->delivery_partner_phone)
+                                    ->where('ssn', $request->social_security_number)
+                                    ->first();
+                if(!$deliveryPartner){
+                    $deliveryPartner = new DeliveryPartner();
+                    $deliveryPartner->name = $request->delivery_partner_name;
+                    $deliveryPartner->phone = $request->delivery_partner_phone;
+                    $deliveryPartner->ssn = $request->social_security_number;
+                    $deliveryPartner->save();
+                }
+                $seller->delivery_partner_id = $deliveryPartner->id;
+                $seller->save();
+            }
+
+            // create products or services
         }
 
         // // Generate OTP for email verification
@@ -202,7 +218,7 @@ class AuthController extends Controller
             ], 401);
         }
 
-        if (!$user->is_active) {
+        if (!$user->status) {
             return response()->json([
                 'success' => false,
                 'message' => 'Account is deactivated'

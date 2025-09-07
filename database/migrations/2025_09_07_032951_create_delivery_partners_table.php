@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('delivery_partners', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('phone')->unique();
-            $table->string('ssn')->unique();
-            $table->foreignId('seller_id')->constrained()->onDelete('cascade');
+            $table->string('phone');
+            $table->string('ssn');
         });
     }
 

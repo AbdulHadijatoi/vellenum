@@ -88,6 +88,6 @@ class Seller extends Model
 
     public function deliveryPartner()
     {
-        return $this->hasOne(DeliveryPartner::class)->latest('id');
+        return $this->belongsTo(DeliveryPartner::class);
     }
 }
