@@ -77,48 +77,52 @@ class AuthController extends Controller
 
         // If seller, create seller record
         if ($request->role === 'seller') {
-            $sellerData = $request->only([
+            // Only include columns that exist on the sellers table to avoid SQL errors
+            $allowedSellerFields = [
                 'operating_hours',
-                'menu_items',
-                'service_packages',
-                'insurance_offerings',
-                'books_details',
-                'property_details',
-                'product_details',
-                'vehicle_information',
-                'delivery_partner_name', 
-                'delivery_partner_phone', 
-                'delivery_partner_ssn',
-                'text_identification',
                 'license_number',
-                'insurance_license_number',
-                'license_expiry_date',
-                'bar_association_number',
                 'years_of_experience',
-                'specialization',
-                'pricing_model',
-                'price'
-            ]);
-
-            $sellerData['user_id'] = $user->id;
-            $sellerData['seller_category_id'] = $request->seller_category_id;
-
-            // Map uploaded files to File model records and set seller file_id columns
-            $fileFieldMap = [
-                'proof_of_business_registration_file' => 'proof_of_business_registration_file_id',
-                'food_safety_certifications_file' => 'food_safety_certifications_file_id',
-                'government_issued_id_file' => 'government_issued_id_file_id',
-                'business_registration_certificate_file' => 'business_registration_certificate_file_id',
-                'professional_license_file' => 'professional_license_file_id',
-                'legal_certifications_file' => 'legal_certifications_file_id',
-                'vehicle_registration_document_file' => 'vehicle_registration_document_file_id',
-                'vehicle_insurance_document_file' => 'vehicle_insurance_document_file_id',
-                'book_cover_file' => 'book_cover_file_id',
-                'book_file' => 'book_file_id',
-                'product_photo_file' => 'product_photo_file_id',
+                'bar_association_number',
+                'license_expiry_date',
             ];
 
-            foreach ($fileFieldMap as $reqKey => $sellerKey) {
+            $sellerData = [
+                'user_id' => $user->id,
+                'seller_category_id' => $request->seller_category_id,
+            ];
+
+            foreach ($allowedSellerFields as $field) {
+                if ($request->has($field)) {
+                    $sellerData[$field] = $request->input($field);
+                }
+            }
+
+            // Map only files that correspond to actual seller foreign keys in the migration
+            $fileFieldMap = [
+                'government_issued_id_file' => 'government_issued_id',
+                'business_registration_certificate_file' => 'business_registration_certificate',
+                'food_safety_certifications_file' => 'food_safety_certifications',
+                'professional_license_file' => 'professional_license',
+                'legal_certifications_file' => 'legal_certifications',
+            ];
+
+            // All incoming file keys we validate for registration - we'll create File records for any uploaded
+            $allFileKeys = [
+                'proof_of_business_registration_file',
+                'food_safety_certifications_file',
+                'government_issued_id_file',
+                'business_registration_certificate_file',
+                'professional_license_file',
+                'legal_certifications_file',
+                'vehicle_registration_document_file',
+                'vehicle_insurance_document_file',
+                'book_cover_file',
+                'book_file',
+                'product_photo_file',
+                'text_identification_file'
+            ];
+
+            foreach ($allFileKeys as $reqKey) {
                 if ($request->hasFile($reqKey)) {
                     $uploaded = $request->file($reqKey);
                     $originalName = $uploaded->getClientOriginalName();
@@ -143,7 +147,11 @@ class AuthController extends Controller
                         'is_public' => true,
                     ]);
 
-                    $sellerData[$sellerKey] = $file->id;
+                    // Attach to seller only when the file maps to a seller column
+                    if (isset($fileFieldMap[$reqKey])) {
+                        $sellerColumn = $fileFieldMap[$reqKey];
+                        $sellerData[$sellerColumn] = $file->id;
+                    }
                 }
             }
 

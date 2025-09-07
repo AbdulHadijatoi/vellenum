@@ -40,17 +40,11 @@ class File extends Model
 
     public function sellers()
     {
-        return $this->hasMany(Seller::class, 'proof_of_business_registration_file_id')
-            ->orWhere('food_safety_certifications_file_id', $this->id)
-            ->orWhere('government_issued_id_file_id', $this->id)
-            ->orWhere('business_registration_certificate_file_id', $this->id)
-            ->orWhere('professional_license_file_id', $this->id)
-            ->orWhere('legal_certifications_file_id', $this->id)
-            ->orWhere('vehicle_registration_document_file_id', $this->id)
-            ->orWhere('vehicle_insurance_document_file_id', $this->id)
-            ->orWhere('book_cover_file_id', $this->id)
-            ->orWhere('book_file_id', $this->id)
-            ->orWhere('product_photo_file_id', $this->id);
+        return $this->hasMany(Seller::class, 'government_issued_id')
+            ->orWhere('business_registration_certificate', $this->id)
+            ->orWhere('food_safety_certifications', $this->id)
+            ->orWhere('professional_license', $this->id)
+            ->orWhere('legal_certifications', $this->id)
     }
 
     public function products()

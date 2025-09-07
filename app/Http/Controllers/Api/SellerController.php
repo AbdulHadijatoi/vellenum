@@ -27,7 +27,17 @@ class SellerController extends Controller
     }
 
     public function getSellers(){
-        $sellers = Seller::with(['user', 'sellerCategory', 'proofOfBusinessRegistrationFile','foodSafetyCertificationsFile','governmentIssuedIdFile','businessRegistrationCertificateFile','professionalLicenseFile','legalCertificationsFile','vehicleRegistrationDocumentFile','vehicleInsuranceDocumentFile','bookCoverFile','bookFile','productPhotoFile'])->get();
+        $sellers = Seller::with([
+            'user',
+            'sellerCategory',
+            'governmentIssuedId',
+            'businessRegistrationCertificate',
+            'foodSafetyCertifications',
+            'professionalLicense',
+            'legalCertifications',
+            'vehicles',
+            'books'
+        ])->get();
 
         return response()->json([
             'success' => true,
