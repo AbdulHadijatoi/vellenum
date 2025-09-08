@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+    protected $guarded = [
         // 'seller_id',
         // 'product_category_id',
         // 'title',
@@ -38,11 +38,6 @@ class Product extends Model
     public function productCategory()
     {
         return $this->belongsTo(ProductCategory::class);
-    }
-
-    public function imageFile()
-    {
-        return $this->belongsTo(File::class, 'image_file_id');
     }
 
     public function images()

@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->string('image')->nullable();
+            $table->unsignedBigInteger('image')->nullable();
+            $table->foreign('image')->references('id')->on('files')->onDelete('set null');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

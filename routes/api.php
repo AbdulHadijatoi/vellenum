@@ -8,9 +8,11 @@ use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\BookController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\InsuranceOfferingController;
+use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SellerMenuController;
 use App\Http\Controllers\Api\VehicleController;
 use App\Http\Controllers\Api\PropertyController;
+use App\Http\Controllers\Api\ProductCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +47,21 @@ Route::prefix('home')->group(function () {
     Route::get('products/{id}', [HomeController::class, 'getProductDetails']);
 });
 
+Route::group(['prefix' => 'product-categories'], function () {
+    Route::get('/', [ProductCategoryController::class, 'index']);
+    Route::get('/single/{id}', [ProductCategoryController::class, 'show']);
+    Route::post('store', [ProductCategoryController::class, 'store']);
+    Route::post('update/{id}', [ProductCategoryController::class, 'update']);
+    Route::delete('{id}', [ProductCategoryController::class, 'destroy']);
+});
+Route::group(['prefix' => 'products'], function () {
+    Route::get('/', [ProductController::class, 'getProducts']);
+    Route::get('/single/{id}', [ProductController::class, 'getProduct']);
+    Route::post('store', [ProductController::class, 'createProduct']);
+    Route::post('update/{id}', [ProductController::class, 'updateProduct']);
+    Route::delete('{id}', [ProductController::class, 'deleteProduct']);
+});
+
 // Protected routes
 Route::middleware('auth:api')->group(function () {
     // Auth routes
@@ -54,15 +71,8 @@ Route::middleware('auth:api')->group(function () {
 
     // Seller routes
     Route::prefix('seller')->middleware('role:seller')->group(function () {
-    Route::get('profile', [SellerController::class, 'getSellerProfile']);
-    Route::put('profile', [SellerController::class, 'updateSellerProfile']);
-        
-        Route::group(['prefix' => 'products'], function () {
-            Route::get('/', [SellerController::class, 'getProducts']);
-            Route::post('store', [SellerController::class, 'createProduct']);
-            Route::post('update/{id}', [SellerController::class, 'updateProduct']);
-            Route::delete('{id}', [SellerController::class, 'deleteProduct']);
-        });
+        Route::get('profile', [SellerController::class, 'getSellerProfile']);
+        Route::post('profile', [SellerController::class, 'updateSellerProfile']);
 
         Route::group(['prefix' => 'books'], function () {
             Route::get('/', [BookController::class, 'index']);
