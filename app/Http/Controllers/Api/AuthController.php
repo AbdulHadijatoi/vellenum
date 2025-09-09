@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Seller;
 use App\Models\SellerCategory;
 use App\Models\File;
+use App\Models\ReferalCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -67,6 +68,11 @@ class AuthController extends Controller
             'state' => $request->state,
             'city' => $request->city,
             'zip_code' => $request->zip_code,
+        ]);
+
+        $referalCode = ReferalCode::create([
+            'user_id' => $user->id,
+            'code' => ReferalCode::generateCode(8)
         ]);
 
         // Assign role
@@ -188,6 +194,7 @@ class AuthController extends Controller
             'message' => 'User registered successfully.',
             'data' => [
                 'user' => $user,
+                'referal_code' => $referalCode->code??null
                 // 'otp' => $otp, // Remove this when email is implemented
                 // 'otp_expires_at' => $user->otp_expires_at
             ]

@@ -69,4 +69,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Seller::class);
     }
+
+    public function referalCode()
+    {
+        return $this->hasOne(ReferalCode::class);
+    }
 }
