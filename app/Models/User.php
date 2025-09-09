@@ -19,24 +19,24 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'phone',
-        'business_name',
-        'business_email',
-        'business_phone',
-        'business_address',
-        'country',
-        'state',
-        'city',
-        'zip_code',
-        'otp',
-        'otp_expires_at',
-        'is_verified',
-        'status',
-        'profile_image',
+    protected $guarded = [
+        // 'name',
+        // 'email',
+        // 'password',
+        // 'phone',
+        // 'business_name',
+        // 'business_email',
+        // 'business_phone',
+        // 'business_address',
+        // 'country',
+        // 'state',
+        // 'city',
+        // 'zip_code',
+        // 'otp',
+        // 'otp_expires_at',
+        // 'is_verified',
+        // 'status',
+        // 'profile_image',
     ];
 
     /**

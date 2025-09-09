@@ -31,6 +31,7 @@ class AuthController extends Controller
             'state' => 'nullable|string|max:100',
             'city' => 'nullable|string|max:100',
             'zip_code' => 'nullable|string|max:20',
+            'referal_code' => 'nullable|string|max:8',
 
             'seller_category_id' => 'nullable|exists:seller_categories,id',
             'license_number' => 'nullable|string',
@@ -49,6 +50,7 @@ class AuthController extends Controller
             'role' => 'required|in:seller,buyer',
         ]);
 
+
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
@@ -57,8 +59,10 @@ class AuthController extends Controller
             ], 422);
         }
 
+        $getReferalCode = ReferalCode::where('code', $request->referal_code)->first();
+
         // Create user
-        $user = User::create([
+        $createUserData = [
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -68,18 +72,25 @@ class AuthController extends Controller
             'state' => $request->state,
             'city' => $request->city,
             'zip_code' => $request->zip_code,
-        ]);
+            'referal_code_id' => $getReferalCode?$getReferalCode->id:null,
+        ];
 
+
+        $user = User::create($createUserData);
+
+
+        // Assign role
+        $user->assignRole($request->role);
         $referalCode = ReferalCode::create([
             'user_id' => $user->id,
             'code' => ReferalCode::generateCode(8)
         ]);
 
-        // Assign role
-        $user->assignRole($request->role);
 
         // If seller, create seller record
         if ($request->role === 'seller') {
+
+
             // Only include columns that exist on the sellers table to avoid SQL errors
             $allowedSellerFields = [
                 "license_number",
@@ -198,7 +209,7 @@ class AuthController extends Controller
                 // 'otp' => $otp, // Remove this when email is implemented
                 // 'otp_expires_at' => $user->otp_expires_at
             ]
-        ], 201);
+        ], 200);
     }
 
     public function login(Request $request)
