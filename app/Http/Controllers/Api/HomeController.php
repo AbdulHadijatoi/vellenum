@@ -117,7 +117,7 @@ class HomeController extends Controller
 
     public function getSellerCategories()
     {
-        $categories = SellerCategory::where('status', true)->get();
+        $categories = SellerCategory::where('status', true)->get(['id','name']);
 
         return response()->json([
             'success' => true,
