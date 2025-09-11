@@ -2,16 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-class ProductImage extends Model
+class MenuImage extends Model
 {
-    use HasFactory;
-
-    protected $fillable = [
-        'product_id',
+     protected $fillable = [
+        'seller_menu_id',
         'file_id',
         'sort_order',
         'is_primary',
@@ -22,9 +19,9 @@ class ProductImage extends Model
         'sort_order' => 'integer',
     ];
 
-    public function product()
+    public function sellerMenu()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(SellerMenu::class);
     }
 
     public function file()

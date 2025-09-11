@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\MenuCategory;
 use App\Services\FileService;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class ProductCategoryController extends Controller
+class MenuCategoryController extends Controller
 {
     public function index()
     {
-        $categories = ProductCategory::with('categoryImage')->get(['id','name','image']);
+        $categories = MenuCategory::with('categoryImage')->get(['id','name','image']);
         
         $categories = $categories->map(function ($category) {
             return [
@@ -30,7 +31,7 @@ class ProductCategoryController extends Controller
 
     public function show($id)
     {
-        $category = ProductCategory::with('categoryImage')->findOrFail($id);
+        $category = MenuCategory::with('categoryImage')->findOrFail($id);
 
         return response()->json([
             'success' => true,
@@ -55,7 +56,7 @@ class ProductCategoryController extends Controller
             $fileId = (new FileService())->handleFileUpload($request->file('image'));
         }
 
-        $category = ProductCategory::create([
+        $category = MenuCategory::create([
             'name'        => $request->name,
             'status'      => $request->status ?? 1,
             'image'       => $fileId,
@@ -70,7 +71,7 @@ class ProductCategoryController extends Controller
 
     public function update(Request $request, $id)
     {
-        $category = ProductCategory::findOrFail($id);
+        $category = MenuCategory::findOrFail($id);
 
         $request->validate([
             'name'        => 'sometimes|required|string|max:255',
@@ -98,7 +99,7 @@ class ProductCategoryController extends Controller
 
     public function destroy($id)
     {
-        $category = ProductCategory::findOrFail($id);
+        $category = MenuCategory::findOrFail($id);
         $category->delete();
         return response()->json(['message' => 'Category deleted successfully']);
     }

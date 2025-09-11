@@ -12,4 +12,18 @@ class SellerMenu extends Model
     {
         return $this->belongsTo(Seller::class);
     }
+
+    public function images()
+    {
+        return $this->hasMany(MenuImage::class)->ordered();
+    }
+
+    public function category(){
+        return $this->belongsTo(MenuCategory::class,'menu_category_id');
+    }
+
+    public function primaryImage()
+    {
+        return $this->hasOne(MenuImage::class)->where('is_primary', true);
+    }
 }

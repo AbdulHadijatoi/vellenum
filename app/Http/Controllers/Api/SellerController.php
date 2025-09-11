@@ -18,7 +18,7 @@ class SellerController extends Controller
 {
     public function getSellerCategories()
     {
-        $categories = SellerCategory::where('status', true)->get();
+        $categories = SellerCategory::where('status', true)->get(['id','name','status']);
         
         return response()->json([
             'success' => true,

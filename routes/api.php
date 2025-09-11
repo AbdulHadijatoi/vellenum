@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\BookController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\InsuranceOfferingController;
+use App\Http\Controllers\Api\MenuCategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SellerMenuController;
 use App\Http\Controllers\Api\VehicleController;
@@ -47,23 +48,44 @@ Route::prefix('home')->group(function () {
     Route::get('products/{id}', [HomeController::class, 'getProductDetails']);
 });
 
-Route::group(['prefix' => 'product-categories'], function () {
-    Route::get('/', [ProductCategoryController::class, 'index']);
-    Route::get('/single/{id}', [ProductCategoryController::class, 'show']);
-    Route::post('store', [ProductCategoryController::class, 'store']);
-    Route::post('update/{id}', [ProductCategoryController::class, 'update']);
-    Route::delete('{id}', [ProductCategoryController::class, 'destroy']);
-});
-Route::group(['prefix' => 'products'], function () {
-    Route::get('/', [ProductController::class, 'getProducts']);
-    Route::get('/single/{id}', [ProductController::class, 'getProduct']);
-    Route::post('store', [ProductController::class, 'createProduct']);
-    Route::post('update/{id}', [ProductController::class, 'updateProduct']);
-    Route::delete('{id}', [ProductController::class, 'deleteProduct']);
-});
+
 
 // Protected routes
 Route::middleware('auth:api')->group(function () {
+
+    Route::group(['prefix' => 'product-categories'], function () {
+        Route::get('/', [ProductCategoryController::class, 'index']);
+        Route::get('/single/{id}', [ProductCategoryController::class, 'show']);
+        Route::post('store', [ProductCategoryController::class, 'store']);
+        Route::post('update/{id}', [ProductCategoryController::class, 'update']);
+        Route::delete('{id}', [ProductCategoryController::class, 'destroy']);
+    });
+
+    Route::group(['prefix' => 'products'], function () {
+        Route::get('/', [ProductController::class, 'getProducts']);
+        Route::get('/single/{id}', [ProductController::class, 'getProduct']);
+        Route::post('store', [ProductController::class, 'createProduct']);
+        Route::post('update/{id}', [ProductController::class, 'updateProduct']);
+        Route::delete('{id}', [ProductController::class, 'deleteProduct']);
+    });
+
+    Route::group(['prefix' => 'seller-menus'], function () {
+        Route::get('/', [SellerMenuController::class, 'index']);
+        Route::post('store', [SellerMenuController::class, 'store']);
+        Route::post('update/{id}', [SellerMenuController::class, 'update']);
+        Route::get('{id}', [SellerMenuController::class, 'show']);
+        Route::delete('{id}', [SellerMenuController::class, 'destroy']);
+    });
+
+     Route::group(['prefix' => 'menu-categories'], function () {
+        Route::get('/', [MenuCategoryController::class, 'index']);
+        Route::get('/single/{id}', [MenuCategoryController::class, 'show']);
+        Route::post('store', [MenuCategoryController::class, 'store']);
+        Route::post('update/{id}', [MenuCategoryController::class, 'update']);
+        Route::delete('{id}', [MenuCategoryController::class, 'destroy']);
+    });
+
+
     // Auth routes
     Route::prefix('auth')->group(function () {
         Route::post('logout', [AuthController::class, 'logout']);
@@ -98,13 +120,7 @@ Route::middleware('auth:api')->group(function () {
             Route::delete('{id}', [InsuranceOfferingController::class, 'destroy']);
         });
 
-        Route::group(['prefix' => 'menus'], function () {
-            Route::get('/', [SellerMenuController::class, 'index']);
-            Route::post('store', [SellerMenuController::class, 'store']);
-            Route::post('update/{id}', [SellerMenuController::class, 'update']);
-            Route::get('{id}', [SellerMenuController::class, 'show']);
-            Route::delete('{id}', [SellerMenuController::class, 'destroy']);
-        });
+       
 
         Route::group(['prefix' => 'vehicles'], function () {
             Route::get('/', [VehicleController::class, 'index']);
@@ -135,7 +151,7 @@ Route::middleware('auth:api')->group(function () {
 });
 
 // General seller category routes (accessible by all authenticated users)
-Route::middleware('auth:api')->get('seller-categories', [SellerController::class, 'getSellerCategories']);
+Route::get('seller-categories', [SellerController::class, 'getSellerCategories']);
 
 // File management routes
 Route::middleware('auth:api')->group(function () {

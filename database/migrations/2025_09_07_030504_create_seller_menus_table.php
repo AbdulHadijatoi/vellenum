@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('seller_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->string('category')->nullable();
+            $table->unsignedBigInteger('menu_category_id')->nullable();
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->string('duration')->nullable(); // e.g., "30 mins", "1 hour"

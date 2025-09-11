@@ -12,29 +12,22 @@ use Illuminate\Support\Facades\Validator;
 class ProductController extends Controller
 {
     
-    public function createProduct(Request $request)
-    {
-        // $user = $request->user();
-        // $seller = $user->seller;
-
-        // if (!$seller) {
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => 'Seller profile not found'
-        //     ], 404);
-        // }
+    public function createProduct(Request $request) {
 
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
+            'seller_id' => 'required|exists:sellers,id',
             'quantity' => 'required|integer|min:0',
             'product_category_id' => 'nullable|exists:product_categories,id',
             'type' => 'required|in:product,service',
-            // 'attributes' => 'nullable|array',
+            'properties' => 'nullable|array',
             'images' => 'nullable|array',
             'images.*' => 'file|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+
 
         if ($validator->fails()) {
             return response()->json([
@@ -44,15 +37,21 @@ class ProductController extends Controller
             ], 422);
         }
 
-        $product = Product::create([
+        $productData = [
             'title' => $request->title,
             'description' => $request->description,
             'price' => $request->price,
             'quantity' => $request->quantity,
             'product_category_id' => $request->product_category_id,
             'type' => $request->type,
-            'seller_id' => $request->seller_id
-        ]);
+            'seller_id' => $request->seller_id,
+        ];
+
+        if($request->properties){
+            $productData['attributes'] = json_encode($request->properties);
+        }
+
+        $product = Product::create($productData);
 
         // Handle multiple images upload
         if ($request->hasFile('images')) {
@@ -76,21 +75,9 @@ class ProductController extends Controller
         ], 201);
     }
 
-    public function updateProduct(Request $request, $id)
-    {
-        // $user = $request->user();
-        // $seller = $user->seller;
+    public function updateProduct(Request $request, $id) {
 
-        // if (!$seller) {
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => 'Seller profile not found'
-        //     ], 404);
-        // }
-
-        $product = Product::where('id', $id)
-                        // ->where('seller_id', $seller->id)
-                        ->first();
+        $product = Product::where('id', $id)->first();
 
         if (!$product) {
             return response()->json([
@@ -106,7 +93,8 @@ class ProductController extends Controller
             'quantity' => 'sometimes|integer|min:0',
             'product_category_id' => 'nullable|exists:product_categories,id',
             'type' => 'sometimes|in:product,service',
-            'attributes' => 'nullable|array',
+            'properties' => 'nullable|array',
+            'delete_image_ids' => 'nullable|array',
             'images' => 'nullable|array',
             'images.*' => 'file|mimes:jpeg,png,jpg,gif|max:2048',
             'status' => 'sometimes|boolean',
@@ -123,8 +111,12 @@ class ProductController extends Controller
 
         $productData = $request->only([
             'title', 'description', 'price', 'quantity', 'product_category_id', 
-            'type', 'attributes', 'status', 'is_featured'
+            'type', 'status', 'is_featured'
         ]);
+
+        if($request->properties){
+            $productData['attributes'] = json_encode($request->properties);
+        }
 
         $product->update($productData);
 
@@ -143,6 +135,16 @@ class ProductController extends Controller
                     'sort_order' => $index,
                     'is_primary' => $index === 0 && !$request->has('image_file_id'),
                 ]);
+            }
+        }
+
+        if(count($request->delete_image_ids)){
+            $productImages = ProductImage::whereIn('id', $request->delete_image_ids)->get();
+
+            if($productImages->count()>0){
+                foreach ($productImages as $productImage) {
+                    $productImage->deleteWithFile();
+                }
             }
         }
 
